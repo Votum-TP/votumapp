@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:votum/pages/login_page/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      home: LoginPage(),
     );
   }
 }
