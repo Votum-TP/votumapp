@@ -36,27 +36,38 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      key: _scaffoldKey,
-      body: NotificationListener<OverscrollIndicatorNotification>(
-        child: SingleChildScrollView(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height >= 775.0
-                ? MediaQuery.of(context).size.height
-                : 775.0,
-            decoration: new BoxDecoration(),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 75.0),
-                ),
-                _buildSignIn()
-              ],
-            ),
-          ),
-        ),
-      ),
+     body: Container(
+       decoration: BoxDecoration(
+           gradient: LinearGradient(
+             begin: Alignment.topCenter,
+             end: Alignment.bottomCenter,
+             colors: [Color(0xff0B9BF5), Color(0xff1B2AC2)],
+           )
+       ),
+       child: SafeArea(
+         child: Center(
+           child: SingleChildScrollView(
+             scrollDirection: Axis.vertical,
+             child: Column(
+               crossAxisAlignment: CrossAxisAlignment.center,
+               mainAxisAlignment: MainAxisAlignment.center,
+               children: [
+                 Text('VOTUM',
+                   style: GoogleFonts.poppins(
+                       textStyle: const TextStyle(
+                         fontWeight: FontWeight.bold,
+                         fontSize: 40,
+                       )
+                   ),),
+                 _buildSignIn()
+               ],
+             ) ,
+           ),
+         ),
+
+       ),
+
+     ),
     );
   }
 
