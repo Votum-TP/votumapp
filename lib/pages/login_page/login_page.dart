@@ -52,13 +52,28 @@ class _LoginPageState extends State<LoginPage> {
                crossAxisAlignment: CrossAxisAlignment.center,
                mainAxisAlignment: MainAxisAlignment.center,
                children: [
-                 Text('VOTUM',
-                   style: GoogleFonts.poppins(
-                       textStyle: const TextStyle(
-                         fontWeight: FontWeight.bold,
-                         fontSize: 40,
-                       )
-                   ),),
+                 Row(
+                   crossAxisAlignment: CrossAxisAlignment.center,
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children: [
+                     Text('VO',
+                       style: GoogleFonts.poppins(
+                           textStyle: const TextStyle(
+                             fontWeight: FontWeight.bold,
+                             fontSize: 40,
+                             color: Colors.black38
+                           )
+                       ),),
+                     Text('TUM',
+                       style: GoogleFonts.poppins(
+                           textStyle: const TextStyle(
+                             fontWeight: FontWeight.bold,
+                             fontSize: 40,
+                               color: Color(0xff8AD2FF)
+                           )
+                       ),),
+                   ],
+                 ),
                  _buildSignIn()
                ],
              ) ,
@@ -177,7 +192,9 @@ class _LoginPageState extends State<LoginPage> {
 
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(18.0))),
                     color: Color(0xFF3F468F),
-                    onPressed: () {  },
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'elections');
+                    },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 42.0),
@@ -189,6 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                             fontFamily: "Poppins"),
                       ),
                     ),
+
                     ),
               ),
             ],

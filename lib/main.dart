@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:votum/pages/elections_page/election_page.dart';
 import 'package:votum/pages/login_page/login_page.dart';
 
 void main() {
@@ -18,6 +19,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: LoginPage(),
+      initialRoute: '/',
+      routes: {
+        'elections': (context) => ElectionPage()
+      },
     );
   }
 }
