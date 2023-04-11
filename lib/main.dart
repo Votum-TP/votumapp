@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:votum/pages/autentication_otp/otp_page.dart';
 import 'package:votum/pages/elections_page/election_page.dart';
+import 'package:votum/pages/elections_page/vote_page.dart';
+import 'package:votum/pages/face_authentication_page/authentication_page.dart';
 import 'package:votum/pages/login_page/login_page.dart';
 
 void main() {
@@ -18,10 +21,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: AuthenticationPage(),
       initialRoute: '/',
       routes: {
-        'elections': (context) => ElectionPage()
+        'elections': (context) => VotePage(),
+        'otp': (context) => OtpPage(),
       },
     );
   }

@@ -20,6 +20,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 UserAccountsDrawerHeader(accountName: Text('William'), accountEmail: Text('accountEmail'), currentAccountPicture: CircleAvatar(
                   radius: 60.0,
                   backgroundImage: NetworkImage('https://i.imgur.com/0CJ0sT7.png'),
+
                 ),
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -32,6 +33,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   title: Text('Elecciones'),
                   subtitle: Text('Ir a elecciones'),
                   leading: Icon(Icons.home),
+
                 )
 
               ],)
