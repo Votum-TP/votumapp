@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:lottie/lottie.dart';
 import 'package:votum/providers/CameraProvider.dart';
+import 'package:votum/utils/alert.dart';
 
 import 'components/CamaraDetectionPreview.dart';
 import 'components/Cameraheader.dart';
@@ -86,6 +89,26 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
       imageFormatGroup:  ImageFormatGroup.yuv420
     );
     await controller.initialize();
+  }
+
+  onTakePicture() async {
+    await controller.takePicture().then((XFile xfile){
+      if(mounted) {
+        if(xfile != null){
+          showDialog(context: context, builder: (context)=> AlertDialog(
+            title: Text('FOTO'),
+            content: SizedBox(
+              width: 200.0,
+              height: 200.0,
+              child: CircleAvatar(
+                backgroundImage: Image.file(File(xfile.path)).image,
+              ),
+            )
+          ));
+        }
+      }
+      });
+
   }
 
 }

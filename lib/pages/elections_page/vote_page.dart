@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:votum/model/Elections.dart';
 import 'package:votum/pages/elections_page/Election_detail_page.dart';
 import 'package:votum/widgets/Custom_drawer.dart';
 
+import '../../model/Eleccion.dart';
 import '../../providers/Elections_Provider.dart';
 
 class VotePage extends StatefulWidget {
@@ -15,16 +15,27 @@ class VotePage extends StatefulWidget {
 class _VotePageState extends State<VotePage>{
 
   ElectionProvideer voteProvider = new ElectionProvideer();
-  var elecciones = <Eleccion>[];
+    var elecciones = <Eleccion>[];
 
   @override
   void initState() {
     // TODO: implement initState
-    elecciones = voteProvider.getResults();
+    Future.delayed(Duration.zero, () async {
+      //here is the async code, you can execute any async code here
+      var res = await voteProvider.getResults();
+
+    });
+
+
     super.initState();
   }
+
+
   @override
   Widget build(BuildContext context) {
+    double baseWidth = 360;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double ffem = fem * 0.97;
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
@@ -64,31 +75,112 @@ class _VotePageState extends State<VotePage>{
             ),),
             Expanded(child: ListView.builder(
                 padding: const EdgeInsets.only(
-          left: 20.0, right: 20.0),
+          left: 10.0, right: 10.0),
                 itemCount: elecciones.length,
                 itemBuilder: (BuildContext context, int index){
                   Eleccion eleccion = elecciones[index];
-                 return GestureDetector(
-                   onTap: () {
-                     Navigator.push(context, MaterialPageRoute(builder: (context)=> ElectionDetail(eleccion: elecciones[index],)));
-                   },
-                   child: Container(height: 90.0,
-                     decoration: BoxDecoration(
-                         borderRadius: BorderRadius.circular(12.0),
-                         color: Colors.white70
-                     ),
-                     margin: const EdgeInsets.all(10.0), child: ListTile(
-                       leading: CircleAvatar(
-                         radius: 30.0,
-                         backgroundImage: NetworkImage('dadas'),
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> ElectionDetail(eleccion: eleccion,)));
+                    },
+                    child: Container(height: 81*fem,
+                      decoration: BoxDecoration(
+                        color: Color(0xfff9f9f9),
+                        borderRadius: BorderRadius.circular(4.7242808342*fem),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x3f000000),
+                            offset: Offset(0*fem, 1.8897122145*fem),
+                            blurRadius: 0.9448561072*fem,
+                          ),
+                        ],
+                      ),
+                      margin: const EdgeInsets.all(10.0), child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            // frame187P1 (174:7755)
+                            margin: EdgeInsets.fromLTRB(14*fem, 0*fem, 70*fem, 0*fem),
+                            height: double.infinity,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  // onlinevoting1CfM (174:7757)
+                                  margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 19*fem, 0*fem),
+                                  width: 40.72*fem,
+                                  height: 40.72*fem,
+                                  child: Image.network(
+                                    'https://i.imgur.com/YeElr0Y.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Container(
+                                  // descriptionenF (174:7758)
+                                  height: double.infinity,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        // departamentoacadmicoAu1 (174:7759)
+                                        margin: EdgeInsets.fromLTRB(0*fem, 10*fem, 0*fem, 4.72*fem),
+                                        child: Text(
+                                          eleccion.Nombre.toString(),
+                                          style: GoogleFonts.poppins (
+                                            fontSize: 11*ffem,
+                                            fontWeight: FontWeight.w400,
+                                            height: 1.5*ffem/fem,
+                                            color: Color(0xff000000),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        // fechadeinicio10102022QHZ (174:7760)
+                                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 4.72*fem),
+                                        child: Text(
+                                          'Fecha de inicio:'+ eleccion.FechaInicio.toString(),
+                                          style: GoogleFonts.poppins (
+                                            fontSize: 9*ffem,
+                                            fontWeight: FontWeight.w400,
+                                            height: 1.5*ffem/fem,
+                                            color: Color(0xff95989e),
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        // estadofinalizadoexb (174:7761)
+                                        'Estado: Iniciado',
+                                        style: GoogleFonts.poppins (
+                                          fontSize: 9*ffem,
+                                          fontWeight: FontWeight.w400,
+                                          height: 1.5*ffem/fem,
+                                          color: Color(0xff7fc008),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 50,
+                                ),
+                                Container(
+                                  // vectorjUF (174:7762)
+                                  margin: EdgeInsets.fromLTRB(5*fem, 0*fem, 0*fem, 15*fem),
+                                  width: 2.94*fem,
+                                  height: 10.14*fem,
+                                  child: Icon(
+                                      Icons.chevron_right,
+                                    color: Color(0xff7fc008),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      ),
+                  );
 
-                       ),
-
-                       trailing: Icon(Icons.chevron_right) ,
-                       title: Text(eleccion.name.toString()),
-                       subtitle: Text(eleccion.start.toString()),
-                     ),),
-                 );
             }))
           ],
       ),
@@ -136,6 +228,9 @@ class _VotePageState extends State<VotePage>{
     );
   }
 
+
+
+
   buildTextSubTitleVariation2(String text){
     return Padding(
       padding: EdgeInsets.only(bottom: 8),
@@ -148,6 +243,8 @@ class _VotePageState extends State<VotePage>{
         ),
       ),
     );
+
+
   }
 }
 
