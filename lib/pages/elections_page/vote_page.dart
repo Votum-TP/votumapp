@@ -16,6 +16,7 @@ class _VotePageState extends State<VotePage>{
 
   ElectionProvideer voteProvider = new ElectionProvideer();
     var elecciones = <Eleccion>[];
+    var elecciones2 = <Eleccion>[];
 
   @override
   void initState() {
@@ -23,9 +24,14 @@ class _VotePageState extends State<VotePage>{
     Future.delayed(Duration.zero, () async {
       //here is the async code, you can execute any async code here
       var res = await voteProvider.getResults();
-
+      for( var aux in res){
+        elecciones2.add((aux as Eleccion));
+      }
+      setState(() {
+        elecciones = elecciones2;
+        print(elecciones.length);
+      });
     });
-
 
     super.initState();
   }
@@ -46,16 +52,6 @@ class _VotePageState extends State<VotePage>{
               color: Colors.white,
               fontWeight: FontWeight.bold),
         ),
-        leading: GestureDetector(
-          onTap: (){
-            Navigator.pop(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.white,
-          ),
-        ),
-
 
       ),
       drawer: CustomDrawer(),
@@ -160,19 +156,8 @@ class _VotePageState extends State<VotePage>{
                                     ],
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 50,
-                                ),
-                                Container(
-                                  // vectorjUF (174:7762)
-                                  margin: EdgeInsets.fromLTRB(5*fem, 0*fem, 0*fem, 15*fem),
-                                  width: 2.94*fem,
-                                  height: 10.14*fem,
-                                  child: Icon(
-                                      Icons.chevron_right,
-                                    color: Color(0xff7fc008),
-                                  ),
-                                ),
+
+
                               ],
                             ),
                           ),

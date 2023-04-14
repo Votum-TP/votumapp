@@ -40,6 +40,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         title: Text('Autenticación'),
       ),
@@ -48,6 +49,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
         builder: (context,snapshot){
            if(snapshot.connectionState == ConnectionState.done){
              return Stack(
+               alignment: Alignment.bottomCenter,
                children: [
                  SizedBox(
                    width: MediaQuery.of(context).size.width,
@@ -56,7 +58,6 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                  ),
                  Center(
                    child: Column(
-                     mainAxisAlignment: MainAxisAlignment.start,
                      children: [
                        Expanded(
                          child: Padding(
@@ -64,12 +65,29 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                            child: Lottie.asset("Assets/loading.json",
                                width: MediaQuery.of(context).size.width * 0.7),
                          ),
+                         
                        ),
+                       InkWell(
+                         onTap: () => onTakePicture(),
+                         child: Padding(
+                           padding: const EdgeInsets.symmetric(vertical: 20.0),
+                           child: CircleAvatar(
+                             radius: 30.0,
+                             backgroundColor: Colors.white,
+                           ),
+                         ),
+                       ),
+
+
                      ],
                    ),
-                 )
+
+                 ),
+
                ],
              );
+
+
            } else {
              return Center(
                child: CircularProgressIndicator(),
