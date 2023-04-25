@@ -58,8 +58,9 @@ class _LoginPageState extends State<LoginPage> {
                         height: 290,
                         child: FadeAnimation(1.3, Container(
                           decoration: BoxDecoration(
+
                               image: DecorationImage(
-                                  image: AssetImage('Assets/images/votum_icon.png')
+                                  image: AssetImage('Assets/images/cedula.png')
                               )
                           ),
                         )),

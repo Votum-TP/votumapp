@@ -22,6 +22,7 @@ class AuthenticationPage extends StatefulWidget {
 
 class _AuthenticationPageState extends State<AuthenticationPage> {
 
+  late File imageFile;
   late CameraController controller;
   @override
   void initState() {
@@ -114,15 +115,40 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
       if(mounted) {
         if(xfile != null){
           showDialog(context: context, builder: (context)=> AlertDialog(
-            title: Text('FOTO'),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(Pad.padding),
+            ),
+            title: Center(child: Text('Rostro detectado'),),
             content: SizedBox(
-              width: 200.0,
-              height: 200.0,
+              width: 300.0,
+              height: 250.0,
               child: CircleAvatar(
+                radius: 80,
                 backgroundImage: Image.file(File(xfile.path)).image,
               ),
-            )
+            ),
+            actions: <Widget>[
+              Wrap(
+                direction: Axis.horizontal,
+                spacing: 100, // <-- Spacing between children
+                children: <Widget>[
+                  TextButton(
+                    child: Text('NO'),
+                    onPressed: () {
+                      Navigator.of(context).pop(false);
+                    },
+                  ),
+                  TextButton(
+                    child: Text('YES'),
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                    },
+                  )
+                ],
+              )
+            ],
           ));
+          imageFile = File(xfile.path);
         }
       }
       });
@@ -133,4 +159,9 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
 
 enum EnumCameraDescription {
   front, back
+}
+class Pad{
+  Pad._();
+  static const double padding =20;
+  static const double avatarRadius =45;
 }

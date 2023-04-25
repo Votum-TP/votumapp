@@ -54,7 +54,7 @@ class VotoProvider {
     if(response.statusCode == 404) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) =>
-              OtpPage()));
+              OtpVerificationView()));
     }
   }
 
