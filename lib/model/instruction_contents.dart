@@ -12,11 +12,11 @@ List<InstructionContent> contents = [
           ' fingerprint and PIN. Impersonation is an offence.'),
 
   InstructionContent(
-      image: 'Assets/images/instruccion2.png',
+      image: 'Assets/images/instruccion3.png',
       text: 'Deberá verificar su voto con su'
           ' rostro o con una clave dinámica'),
   InstructionContent(
-      image: 'Assets/images/instruccion3.png',
+      image: 'Assets/images/instruccion2.png',
       text: 'Sus intenciones de voto y decisiones, '
           'debe mantenerse en secreto tanto antes como después de la elección. '),
 ];

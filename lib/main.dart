@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:votum/pages/autentication_otp/otp_page.dart';
 import 'package:votum/pages/elections_page/VotoEnviado.dart';
 import 'package:votum/pages/elections_page/election_page.dart';
@@ -12,8 +13,10 @@ import 'package:votum/pages/instruction_page/instruction.dart';
 import 'package:votum/pages/login_page/login_page.dart';
 import 'package:votum/pages/splash/splash.dart';
 
-void main() {
-
+late SharedPreferences localStorage;
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  localStorage = await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
 
@@ -32,7 +35,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: InstructionScreen(electionId: '1',),
+      supportedLocales: const [
+        Locale('en', ''), // English, no country code
+        Locale('es', ''), // Spanish, no country code
+      ],
+      home: LoginPage(),
       initialRoute: '/',
       routes: {
         'elections': (context) => VotePage(),

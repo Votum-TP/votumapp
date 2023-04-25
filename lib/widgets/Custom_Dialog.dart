@@ -62,12 +62,22 @@ class CustomDialog extends StatelessWidget {
                 SizedBox(height: 24.0),
                 Align(
                   alignment: Alignment.bottomRight,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(buttonText),
-                  ),
+                  child: Row(
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Volver'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(buttonText),
+                      ),
+                    ],
+                  )
                 ),
               ],
             ),

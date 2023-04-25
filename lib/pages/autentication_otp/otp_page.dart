@@ -21,6 +21,9 @@ class OtpVerificationView extends StatefulWidget {
 class _OtpVerificationViewState extends State<OtpVerificationView> {
   @override
   Widget build(BuildContext context) {
+    double baseWidth = 360;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double ffem = fem * 0.97;
     bool isVisible = true;
     bool isResentOn = true;
     final otpValue = null;
@@ -41,14 +44,19 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
             child: SingleChildScrollView(
               child: Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppSizes.kHeight30,
                       Text(
-                        "OTP Verification",
-                        style: AppTextStyles.loginHeading,
+                        "Código de verificación",
+                        style: GoogleFonts.poppins(
+                        fontSize: 22*ffem,
+                        fontWeight: FontWeight.w700,
+                        height: 1.5*ffem/fem,
+                        color: Color(0xff3f468f),
+                      ),
                       ),
                       Center(
                         child: SizedBox(
@@ -58,10 +66,12 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                         ),
                       ),
                       Text(
-                        "Enter the verification code we just sent you\non mobile +91",
-                        style: const TextStyle(
-                          color: AppColors.lightBlackColor,
-                          fontWeight: FontWeight.w500,
+                        "Ingrese el código que le enviamos\nen su correo",
+                        style: GoogleFonts.poppins(
+                          fontSize: 16*ffem,
+                          fontWeight: FontWeight.w400,
+                          height: 1.5*ffem/fem,
+                          color: Color(0xff979797),
                         ),
                       ),
                       AppSizes.kHeight30,
@@ -85,11 +95,12 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                                         .read<FirebaseAuthViewModel>()
                                         .resentOTPtoPhone(context);*/
                                   },
-                                  child: const Text(
+                                  child:  Text(
                                     "Resend ",
-                                    style: TextStyle(
-                                      fontSize: 15,
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 19*ffem,
                                       fontWeight: FontWeight.w500,
+                                      height: 1.5*ffem/fem,
                                       color: AppColors.kButtonColor,
                                     ),
                                   ),
@@ -110,10 +121,11 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                                 visible: isVisible,
                                 child: Text(
                                   "Resend in $formattedTime",
-                                  style: const TextStyle(
-                                    fontSize: 15,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 19*ffem,
                                     fontWeight: FontWeight.w500,
-                                    color: AppColors.grey,
+                                    height: 1.5*ffem/fem,
+                                    color: Color(0xff000000),
                                   ),
                                 ),
                               );
@@ -126,6 +138,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                         width: double.infinity,
                         height: 45,
                         child: ElevatedButton(
+
                           onPressed:
 
                                () {
@@ -135,11 +148,21 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                           },
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
+                            backgroundColor:Color(0xff3f468f),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10*fem),
+                            ),
+                            shadowColor:Color(0x3f000000),
                           ),
                           child:
-                               const Text(
-                            "Verify",
-                            style: TextStyle(fontSize: 16),
+                          Text(
+                            'Enviar voto',
+                            style: GoogleFonts.poppins(
+                              fontSize: 18*ffem,
+                              fontWeight: FontWeight.w500,
+                              height: 1.5*ffem/fem,
+                              color: Color(0xffffffff),
+                            ),
                           ),
                         ),
                       )

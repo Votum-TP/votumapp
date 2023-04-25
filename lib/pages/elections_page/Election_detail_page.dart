@@ -2,12 +2,15 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:votum/model/Candidatos.dart';
 import 'package:votum/model/Partido.dart';
 import 'package:votum/pages/elections_page/election_page.dart';
 import 'package:votum/pages/elections_page/election_poll.dart';
+import 'package:votum/pages/instruction_page/instruction.dart';
 import 'package:votum/providers/Candidatos_Provider.dart';
+import 'package:votum/widgets/Custom_Dialog.dart';
 import 'dart:math' as math;
 
 import '../../model/Eleccion.dart';
@@ -162,7 +165,8 @@ class _ElectionDetailState extends State<ElectionDetail> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
                         color: Color(0xFF3F468F),
                         onPressed: () {
-                          crearAlert(context);
+                        crearAlert(context);
+
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -265,7 +269,92 @@ class _ElectionDetailState extends State<ElectionDetail> {
 
   void crearAlert(BuildContext context) {
     showDialog(context: context, builder: (context) {
-      return AlertDialog(
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: Stack(
+          children: [
+            Container(
+              padding: EdgeInsets.only(
+                top: 66 + 16,
+                bottom: 16,
+                left: 16,
+                right: 16,
+              ),
+              margin: EdgeInsets.only(top: 66),
+              decoration: new BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10.0,
+                    offset: const Offset(0.0, 10.0),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min, // To make the card compact
+                children: <Widget>[
+                  Text(
+                    'Comenzar elección',
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  SizedBox(height: 16.0),
+                  Text(
+                    'Emitirá su voto en unos instantes',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  ),
+                  SizedBox(height: 24.0),
+                  Align(
+                      alignment: Alignment.bottomRight,
+                      child: Row(
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Volver'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> InstructionScreen(electionId: widget.eleccion.Id.toString(),)));
+                            },
+                            child: Text('Comenzar'),
+                          ),
+                        ],
+                      )
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              left: 16,
+              right: 16,
+              child: CircleAvatar(
+                backgroundColor: Colors.red,
+                radius: 66,
+                child: Icon(
+                  Icons.report_gmailerrorred,
+                  size: 60,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+      /*return AlertDialog(
         backgroundColor: Colors.white70,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0)
@@ -297,7 +386,9 @@ class _ElectionDetailState extends State<ElectionDetail> {
             ),
           ),
         ],
-      );
+      );*/
+
+
     });
   }
 
