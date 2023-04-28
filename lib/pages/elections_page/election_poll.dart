@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:votum/model/Partido.dart';
 import 'package:votum/providers/Candidatos_Provider.dart';
 import 'dart:math' as math;
+import '../../utils/alert.dart';
 import 'confirm_vote.dart';
 
 class ElectionPoll extends StatefulWidget {
@@ -188,6 +189,7 @@ class _ElectionPollState extends State<ElectionPoll>{
   }
 
   Widget _vote(BuildContext context) {
+    Alert _alert = Alert();
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
@@ -197,9 +199,11 @@ class _ElectionPollState extends State<ElectionPoll>{
       color: Color(0xFF3F468F),
       onPressed: () {
         if(vote == null) {
-          print('rataaaaaaaa');
+          _alert.createAlert(
+              context, "Seleccione un opcion", "No puedo ser vació", "aceptar");
+        } else {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> ConfirmVote(Userid: widget.userId,Electionid: widget.electionId,Description: descripcion.toString(), Name: name.toString(), Partidoid: vote,)));
         }
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> ConfirmVote(Userid: widget.userId,Electionid: widget.electionId,Description: descripcion.toString(), Name: name.toString(),)));
       },
       child: Padding(
            padding: const EdgeInsets.symmetric(

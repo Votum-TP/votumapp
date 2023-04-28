@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:votum/main.dart';
+
 import '../helpers/constant_helpers.dart';
 import '../model/login_response.dart';
 import '../model/receptors/ApiResponse.dart';
@@ -15,16 +17,13 @@ class UserProvider {
     // 'apiKey': '08d771e2-7c49-1789-0eaa-32aff09f1471',
     'Content-Type': 'application/json'
   };
-  final _prefs = new PreferenciasUsuario();
 
 
   Future<APIResponse<LoginResponse>> login(String uID, String uPwd) {
-    final url = _prefs.geturl;
     Userlogin log=new Userlogin();
     log.codigoUsuario=uID;
     log.contrasena=uPwd;
-    _prefs.setemail=uID+"@upc.edu.pe";
-    _prefs.setpass=uPwd;
+    final correo =uID+"@upc.edu.pe";
 
     return http
         .post(Uri.parse("${Constants.URL}/"+'api/Login/LoginApp'),
@@ -34,17 +33,21 @@ class UserProvider {
       if (jsonData['code'] == 200) {
         final jsonData = json.decode(data.body);
 
-        _prefs.settoken = jsonData['token'];
+
+        localStorage.setString('token', jsonData['token'] != null ? jsonData['token']  : '');
+        localStorage.setString('correo', correo != null ? correo  : '');
+        localStorage.setString('codigo', uID!= null ? uID  : '');
+
+        //_prefs.settoken = jsonData['token'];
 
         return APIResponse<LoginResponse>(
             data: LoginResponse.fromJson(jsonData));
-      }
-
-      if (data.statusCode == 400||data.statusCode == 409) {
+      } else {
         final jsonData = json.decode(data.body);
 
+
         return APIResponse<LoginResponse>(
-            error: true, errorMessage: jsonData['msg']);
+            error: true, errorMessage: jsonData['mensaje']);
       }
       return APIResponse<LoginResponse>(
           error: true, errorMessage: 'El usuario y/o Contraseña es incorrecto');

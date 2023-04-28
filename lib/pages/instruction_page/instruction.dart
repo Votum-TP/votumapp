@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:votum/pages/elections_page/election_poll.dart';
 
 import '../../model/instruction_contents.dart';
 import 'component/primary_button.dart';
@@ -85,11 +86,11 @@ class _InstructionScreenState extends State<InstructionScreen> {
               padding: const EdgeInsets.only(bottom: 80),
               child: PrimaryButton(
                 text: currentIndex == contents.length - 1
-                    ? 'Get Started'
-                    : 'Continue',
+                    ? 'Ingresar'
+                    : 'Continuar',
                 onPress: () {
                   if (currentIndex == contents.length - 1) {
-
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ElectionPoll(userId: 1, electionId: int.parse(widget.electionId),)));
                   }
                   _controller!.nextPage(
                     duration: Duration(milliseconds: 100),

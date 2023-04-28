@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:votum/helpers/constant_helpers.dart';
 import 'package:http/http.dart' as http;
+import 'package:votum/main.dart';
 
 import '../model/Eleccion.dart';
 import '../model/Results.dart';
@@ -12,13 +13,14 @@ class ElectionProvideer {
 
   Future<List<Eleccion>> getResults() async{
     final response = await http.get(
-        Uri.parse("${Constants.URL}/api/Elecciones"),
+        Uri.parse("${Constants.URL}/api/Elecciones/ListarElecciones"),
       // Send authorization headers to the backend.
       headers: {
         "Content-Type": "application/json",
-        HttpHeaders.authorizationHeader: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDb2RpZ29Vc3VhcmlvIjoidTIwMTcxNTQxOCIsIk5vbWJyZSI6IkpvYXF1aW4iLCJBcGVsbGlkbyI6IkVnb2NoZWFnYSIsImp0aSI6IjJmNzhmMmFmLTRkYjktNDU0ZS05MDFjLTQzMTBkMjRhZWQ5ZCIsIkRhdGVHZW5lcmF0ZWQiOiIwNi8wNC8yMDIzIDE0OjMzOjM1IiwiZXhwIjoxNjgzMzgzNjE1fQ.2kAq9_53VIplWr77_q0p5v2FQ1WdeTN5-ZYjNnyfsw0',
+        HttpHeaders.authorizationHeader: 'Bearer ' + localStorage.get('token').toString(),
       },
     );
+
 
     final responseJson = jsonDecode(response.body);
     List<Eleccion> elecciones = [];

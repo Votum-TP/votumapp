@@ -12,40 +12,37 @@ String loginResponseToJson(LoginResponse data) => json.encode(data.toJson());
 class LoginResponse {
   LoginResponse({
 
-    required this.id,
+    required this.code,
     //   required this.username,
-    required this.rol,
-    required this.rolId,
+    required this.mensaje,
     //   required this.idf,
     required this.token,
+
   });
 
-  String id;
+  int code;
 
-  // String ?username;
-  String rol;
-  String rolId;
+  String mensaje;
 
   // int ?idf;
   String token;
 
+
   factory LoginResponse.fromJson(Map<String, dynamic> json) =>
       LoginResponse(
-        id: json["id"],
+        code: json["code"],
         //       username: json["username"],
-        rol: json["rol"],
-        rolId: json["rolId"],
-        //      idf: json["idf"],
+        mensaje: json["mensaje"],
         token: json["token"],
+        //      idf: json["idf"],
       );
 
   Map<String, dynamic> toJson() =>
       {
-        "id": id,
+        "code": code,
         //      "username": username,
-        "rol": rol,
-        "rolId": rolId,
-        //      "idf": idf,
+        "mensaje": mensaje,
         "token": token,
+        //      "idf": idf,
       };
 }

@@ -28,8 +28,13 @@ class _ElectionDetailState extends State<ElectionDetail> {
   PartidosProvider voteProvider = new PartidosProvider();
   var partidos = <Partido>[];
   var partidos2 = <Partido>[];
+  bool isbuttonVisible = false;
+  bool isWinnerVisible = false;
   @override
   void initState() {
+    if(widget.eleccion.Estado=='iniciado'){
+      isbuttonVisible = true;
+    }
     // TODO: implement initState
     Future.delayed(Duration.zero, () async {
       //here is the async code, you can execute any async code here
@@ -39,6 +44,7 @@ class _ElectionDetailState extends State<ElectionDetail> {
       }
       setState(() {
         partidos = partidos2;
+
         print(partidos.length);
       });
     });
@@ -50,6 +56,8 @@ class _ElectionDetailState extends State<ElectionDetail> {
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
+
+
     var candidatos = [];
     // TODO: implement build
     return Scaffold(
@@ -73,7 +81,7 @@ class _ElectionDetailState extends State<ElectionDetail> {
 
 
         ),
-        body: Container(
+        body: SingleChildScrollView(child:       Container(
           width: double.infinity,
           child: Container(
             padding: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 41*fem),
@@ -86,7 +94,7 @@ class _ElectionDetailState extends State<ElectionDetail> {
               children: [
                 Container(
                   margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 30*fem),
-                  padding: EdgeInsets.fromLTRB(15*fem, 2.5*fem, 225.37*fem, 0*fem),
+                  padding: EdgeInsets.fromLTRB(15*fem, 0*fem, 225.37*fem, 0*fem),
                   width: double.infinity,
                 ),
                 Container(
@@ -150,22 +158,70 @@ class _ElectionDetailState extends State<ElectionDetail> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(10*fem, 5*fem, 10*fem, 20*fem),
+                        margin: EdgeInsets.fromLTRB(10*fem, 5*fem, 10*fem, 10*fem),
                         padding: EdgeInsets.fromLTRB(9.11*fem, 9.11*fem, 8.89*fem, 0*fem),
                         width: double.infinity,
-                        height: 229*fem,
+                        height: 210*fem,
                         child: ListView(
                           physics: BouncingScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           children: buildParticipantes(context, partidos),
                         ),
                       ),
-                      MaterialButton(
+                      Container(
+                          margin: EdgeInsets.fromLTRB(10*fem, 0*fem, 18*fem, 15*fem),
+                          width: double.infinity,
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if(isbuttonVisible) ... [
+                                          MaterialButton(
+                                height: 40*fem,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                                color: Color(0xFF3F468F),
+                                onPressed: () {
+                                  crearAlert(context);
+
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 42.0),
+                                  child: Text(
+                                      "Comenzar",
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 11*ffem,
+                                          fontWeight: FontWeight.w500,
+                                          height: 1.5*ffem/fem,
+                                          color: Color(0xffffffff))
+                                  ),
+                                ),
+
+                              )
+                                ]
+                                else ...[
+                                  Container(
+                                    // ganadoraHR (502:106)
+                                    margin: EdgeInsets.fromLTRB(10*fem, 0*fem, 18*fem, 15*fem),
+                                    child: Text(
+                                      'Ganador',
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 11*ffem,
+                                        fontWeight: FontWeight.w600,
+                                        height: 1.5*ffem/fem,
+                                        color: Color(0xff3f468f),
+                                      ),
+                                    ),
+                                  ),
+                                  GanadorCard(Partido())
+                                ]
+                              ])),
+
+                      /*MaterialButton(
                         height: 40*fem,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
                         color: Color(0xFF3F468F),
                         onPressed: () {
-                        crearAlert(context);
+                          crearAlert(context);
 
                         },
                         child: Padding(
@@ -181,10 +237,7 @@ class _ElectionDetailState extends State<ElectionDetail> {
                           ),
                         ),
 
-                      ),
-
-
-
+                      )*/
                     ],
                   ),
                 )
@@ -192,7 +245,8 @@ class _ElectionDetailState extends State<ElectionDetail> {
               ],
             ),
           ),
-        )
+        ),)
+
     );
   }
   buildTextTitleVariation1(String text){
@@ -342,7 +396,7 @@ class _ElectionDetailState extends State<ElectionDetail> {
               left: 16,
               right: 16,
               child: CircleAvatar(
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.pinkAccent,
                 radius: 66,
                 child: Icon(
                   Icons.report_gmailerrorred,
@@ -515,6 +569,92 @@ class _ElectionDetailState extends State<ElectionDetail> {
 
           ],
         )
+    );
+  }
+  Widget GanadorCard(Partido partido){
+    double baseWidth = 360;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double ffem = fem * 0.97;
+    return Container(
+      // politicpartye2P (502:107)
+      margin: EdgeInsets.fromLTRB(9*fem, 0*fem, 0*fem, 0*fem),
+      padding: EdgeInsets.fromLTRB(14.17*fem, 13.64*fem, 5.17*fem, 8.64*fem),
+      width: double.infinity,
+      height: 80*fem,
+      decoration: BoxDecoration (
+        border: Border.all(color: Color(0xffc24c1b)),
+        borderRadius: BorderRadius.circular(10*fem),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            // frame18RhM (502:108)
+            margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 70*fem, 0*fem),
+            height: double.infinity,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  // ava6Yb (502:109)
+                  margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 19*fem, 0*fem),
+                  width: 53.72*fem,
+                  height: 53.72*fem,
+                  child: Image.asset(
+                    'assets/mockups-movil/images/ava--gWf.png',
+                    width: 53.72*fem,
+                    height: 53.72*fem,
+                  ),
+                ),
+                Container(
+                  // descriptionAYT (502:112)
+                  margin: EdgeInsets.fromLTRB(0*fem, 9*fem, 0*fem, 9*fem),
+                  height: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        // partidoyabastarRH (502:113)
+                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 4.72*fem),
+                        child: Text(
+                          'Partido Ya Basta',
+                          style: GoogleFonts.poppins(
+                            fontSize: 11*ffem,
+                            fontWeight: FontWeight.w400,
+                            height: 1.5*ffem/fem,
+                            color: Color(0xff000000),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        // representanteaugustorojasvg3 (502:114)
+                        'Representante: Augusto Rojas',
+                        style: GoogleFonts.poppins(
+                          fontSize: 9*ffem,
+                          fontWeight: FontWeight.w400,
+                          height: 1.5*ffem/fem,
+                          color: Color(0xff95989e),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            // vectorQbD (502:115)
+            margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 0*fem),
+            width: 6.94*fem,
+            height: 12.14*fem,
+            child: Image.network(
+              'https://i.imgur.com/hZX2Vmz.png',
+              width: 6.94*fem,
+              height: 12.14*fem,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

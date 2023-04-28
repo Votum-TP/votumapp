@@ -8,7 +8,7 @@ class InstructionContent {
 List<InstructionContent> contents = [
   InstructionContent(
       image: 'Assets/images/instruccion1.png',
-      text: 'You will need to verify your vote with your'
+      text: 'Recuerde realizar su voto en privado, sin comentar su elección'
           ' fingerprint and PIN. Impersonation is an offence.'),
 
   InstructionContent(

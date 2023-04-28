@@ -21,15 +21,11 @@ class _LoginPageState extends State<LoginPage> {
   final FocusNode myFocusNodePasswordLogin = FocusNode();
   _submit() async{
     final result = await uService.login(_codigoAlumno!, _password!);
-    if(result.data==null) {
-      final message = result.errorMessage;
-    }
-    print(result);
-    if (result==null) {
-      print('gaaaaaaaa');
-    }
-    else{
+    if(result != null && result.data != null && result.data?.code ==200) {
       Navigator.pushNamed(context, 'elections');
+      //DIALOG
+    } else {
+      final message = result.errorMessage;
     }
   }
 

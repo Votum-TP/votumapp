@@ -1,21 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:votum/main.dart';
 import 'package:votum/providers/Voto_Provider.dart';
 
+import '../../utils/alert.dart';
 import '../face_authentication_page/authentication_page.dart';
 
 class ConfirmVote extends StatelessWidget {
   final Userid;
   final Electionid;
+  final Partidoid;
   final String Description;
   final String Name;
 
-  //var _votoProvider = VotoProvider();
 
-  const ConfirmVote({ required this.Userid, required this.Electionid, required this.Description, required this.Name});
+  const ConfirmVote({ required this.Userid, required this.Electionid, required this.Description, required this.Name, required this.Partidoid});
   @override
   Widget build(BuildContext context) {
+
+
+    VotoProvider votoProvider = new VotoProvider();
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
@@ -196,8 +201,8 @@ class ConfirmVote extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             GestureDetector(
-                              onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> AuthenticationPage() ));
+                              onTap: () async {
+                                votoProvider.confirmarVoto(localStorage.getString('codigo').toString(), Electionid, Partidoid, context);
                               },
                               child: Container(
                                 // buttonZqm (502:217)
