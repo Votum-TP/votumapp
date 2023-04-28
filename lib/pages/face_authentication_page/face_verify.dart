@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:votum/providers/Voto_Provider.dart';
 
 class FaceVerify extends StatelessWidget {
   final File rostro;
@@ -13,6 +14,7 @@ class FaceVerify extends StatelessWidget {
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
+    VotoProvider votoProvider = new VotoProvider();
 
     return Scaffold(
       appBar: AppBar(
@@ -119,42 +121,47 @@ class FaceVerify extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Container(
-                              // buttonG9Z (168:7275)
-                              margin: EdgeInsets.fromLTRB(31*fem, 0*fem, 31*fem, 0*fem),
-                              child: TextButton(
-                                onPressed: () {},
-                                style: TextButton.styleFrom (
-                                  padding: EdgeInsets.zero,
-                                ),
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 41*fem,
-                                  decoration: BoxDecoration (
-                                    color: Color(0xff3f468f),
-                                    borderRadius: BorderRadius.circular(10*fem),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Color(0x3f000000),
-                                        offset: Offset(0*fem, 8*fem),
-                                        blurRadius: 5*fem,
-                                      ),
-                                    ],
+                            GestureDetector(
+                              onTap: (){
+                                //votoProvider.enviarVoto(CodigoUsuario, IdEleccion)
+                              },
+                              child: Container(
+                                // buttonG9Z (168:7275)
+                                margin: EdgeInsets.fromLTRB(31*fem, 0*fem, 31*fem, 0*fem),
+                                child: TextButton(
+                                  onPressed: () {},
+                                  style: TextButton.styleFrom (
+                                    padding: EdgeInsets.zero,
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                      'Enviar voto',
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 11*ffem,
-                                        fontWeight: FontWeight.w500,
-                                        height: 1.5*ffem/fem,
-                                        color: Color(0xffffffff),
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 41*fem,
+                                    decoration: BoxDecoration (
+                                      color: Color(0xff3f468f),
+                                      borderRadius: BorderRadius.circular(10*fem),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0x3f000000),
+                                          offset: Offset(0*fem, 8*fem),
+                                          blurRadius: 5*fem,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        'Enviar voto',
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 11*ffem,
+                                          fontWeight: FontWeight.w500,
+                                          height: 1.5*ffem/fem,
+                                          color: Color(0xffffffff),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
+                            )
                           ],
                         ),
                       ),

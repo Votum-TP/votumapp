@@ -56,19 +56,49 @@ class _VotePageState extends State<VotePage>{
       ),
       drawer: CustomDrawer(),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                buildTextTitleVariation1('Participe en estas elecciones'),
+            Container(
+              // textinfos3R (174:7750)
+              margin: EdgeInsets.fromLTRB(20*fem, 19*fem, 19.89*fem, 29.11*fem),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    // participeenestaseleccionesxaf (174:7751)
+                    margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 10*fem),
+                    constraints: BoxConstraints (
+                      maxWidth: 205*fem,
+                    ),
+                    child: Text(
+                      'Participe en estas \nelecciones',
+                      style: GoogleFonts.poppins(
+                        fontSize: 22*ffem,
+                        fontWeight: FontWeight.w600,
+                        height: 1.5*ffem/fem,
+                        color: Color(0xff000000),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    // seencuentrainscritoenlossiguie (174:7752)
+                    constraints: BoxConstraints (
+                      maxWidth: 268*fem,
+                    ),
+                    child: Text(
+                      'Se encuentra inscrito en los siguientes\nprocesos:',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14*ffem,
+                        fontWeight: FontWeight.w400,
+                        height: 1.5*ffem/fem,
+                        color: Color(0xff95989e),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
 
-                buildTextSubTitleVariation1('Se encuentra inscrito en los siguientes procesos'),
-              ],
-            ),),
             Expanded(child: ListView.builder(
                 padding: const EdgeInsets.only(
           left: 10.0, right: 10.0),

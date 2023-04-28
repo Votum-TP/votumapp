@@ -14,31 +14,74 @@ class _CustomDrawerState extends State<CustomDrawer> {
       width: MediaQuery.of(context).size.width * 0.75,
         child: Drawer(
           child: Container(
-              color: Colors.indigo[100],
+              color:Colors.white,
               child: ListView(padding: EdgeInsets.all(0.0), children: [
 
-                UserAccountsDrawerHeader(accountName: Text('William'), accountEmail: Text('accountEmail'), currentAccountPicture: CircleAvatar(
-                  radius: 60.0,
-                  backgroundImage: NetworkImage('https://i.imgur.com/0CJ0sT7.png'),
-
-                ),
+                UserAccountsDrawerHeader(
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [Colors.indigo, Colors.blue])),
+                      color:  Color(0xFF0B9BF5),), accountName: null, accountEmail: null,
                 ),
 
+                SizedBox(height: 20,),
                 ListTile(
                   title: Text('Elecciones'),
                   subtitle: Text('Ir a elecciones'),
-                  leading: Icon(Icons.home),
+                  leading: _leadingIcon(Icons.home),
+                ),
+                SizedBox(height: 20,),
+                ListTile(
+                  title: Text('Info'),
+                  subtitle: Text('Sobre Votum'),
+                  leading: _leadingIcon(Icons.info),
+                  onTap: () {
+                    showAboutDialog(
+                        context: context,
+                        applicationVersion: '^1.0.0',
+                        applicationIcon: CircleAvatar(
+                          radius: 30.0,
+                          backgroundColor: Colors.transparent,
+                          backgroundImage: AssetImage('assets/icons/icon.png'),
+                        ),
+                        applicationName: 'ElectChain',
+                        applicationLegalese: 'Brave Tech Solutions');
+                  },
+                ),
+                SizedBox(height: 20,),
+                ListTile(
+                  title: Text('Cerrar Sesión'),
+                  subtitle: Text('Cerrar Sesión'),
+                  leading: _leadingIcon(Icons.logout),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                ),
+                Spacer(),
+                SizedBox(height: 30,),
+                Padding(
+                  padding: const EdgeInsets.only(top: 35),
+                  child:
+                  Column(children: [
+                    Image(
+                      // color: Color,
+                      height: 50.0,
+                      image: AssetImage('Assets/images/votum.png'),
+                      filterQuality: FilterQuality.high,
+                    ),
+                    SizedBox(height: 20,),
+
+                  ],)
 
                 )
-
               ],)
           ),
         ),
       );
+  }
+  Widget _leadingIcon(IconData icon) {
+    return CircleAvatar(
+      backgroundColor: Colors.grey,
+      child: Icon(
+        icon,
+        color: Colors.white,
+      ),
+    );
   }
 }

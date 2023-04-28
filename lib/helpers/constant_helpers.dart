@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Constants {
-  static const String URL = "http://egopro1-001-site1.btempurl.com";
+  static const String URL = "http://votumproject-001-site1.etempurl.com";
 
   static DateFormat formatter = DateFormat('dd/MM/yyyy');
 

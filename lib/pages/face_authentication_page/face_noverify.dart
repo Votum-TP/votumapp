@@ -1,10 +1,13 @@
 import 'dart:io';
 
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../autentication_otp/otp_page.dart';
+
 class FaceNoneVerify extends StatelessWidget {
-  final File rostro;
+  final XFile rostro;
   const FaceNoneVerify({ required this.rostro});
   @override
   Widget build(BuildContext context) {
@@ -119,34 +122,41 @@ class FaceNoneVerify extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Container(
-                              // buttonokF (138:6465)
-                              margin: EdgeInsets.fromLTRB(38.5*fem, 0*fem, 38.5*fem, 0*fem),
-                              width: double.infinity,
-                              height: 41*fem,
-                              decoration: BoxDecoration (
-                                color: Color(0xfff69447),
-                                borderRadius: BorderRadius.circular(10*fem),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0x3f000000),
-                                    offset: Offset(0*fem, 8*fem),
-                                    blurRadius: 5*fem,
-                                  ),
-                                ],
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Verificar OTP',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 11*ffem,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5*ffem/fem,
-                                    color: Color(0xffffffff),
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                    OtpVerificationView()));
+                              },
+                              child: Container(
+                                // buttonokF (138:6465)
+                                margin: EdgeInsets.fromLTRB(38.5*fem, 0*fem, 38.5*fem, 0*fem),
+                                width: double.infinity,
+                                height: 41*fem,
+                                decoration: BoxDecoration (
+                                  color: Color(0xfff69447),
+                                  borderRadius: BorderRadius.circular(10*fem),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0x3f000000),
+                                      offset: Offset(0*fem, 8*fem),
+                                      blurRadius: 5*fem,
+                                    ),
+                                  ],
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Verificar OTP',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 11*ffem,
+                                      fontWeight: FontWeight.w500,
+                                      height: 1.5*ffem/fem,
+                                      color: Color(0xffffffff),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
+                            )
                           ],
                         ),
                       ),
