@@ -34,7 +34,7 @@ class VotoProvider {
     if (response.statusCode == 200) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) =>
-              AuthenticationPage()));
+              AuthenticationPage(IdEleccion: IdEleccion)));
     } else {
       _alert.createAlert(
           context, "Algo salió mal", "No se ha podido confirmar.", "aceptar");
@@ -43,12 +43,15 @@ class VotoProvider {
   autenticarVoto(String CodigoUsuario, int IdEleccion, XFile imageFile, BuildContext context ) async {
     try{
       var request = await http.MultipartRequest
-        ("POST", Uri.parse("${Constants.URL}/")
+        ("POST", Uri.parse("${Constants.URL}/api/Votos/AutenticarVotoReconocimientoFacial")
           );
-      request.headers.addAll({HttpHeaders.authorizationHeader: 'Bearer ' + localStorage.get('token').toString(),});
+      request.headers.addAll({"Content-type": "multipart/form-data",HttpHeaders.authorizationHeader: 'Bearer ' + localStorage.get('token').toString(),});
 
       if(imageFile != null){
-        request.files.add(await http.MultipartFile.fromPath('image', imageFile.path));
+        request.files.add(await http.MultipartFile.fromPath('Target', imageFile.path));
+        request.fields.addAll(<String, String>{'CodigoUsuario': localStorage.get('codigo').toString(), 'IdEleccion': IdEleccion.toString()});
+        request.fields['CodigoUsuario'] = localStorage.get('codigo').toString();
+        request.fields['IdEleccion'] = IdEleccion.toString();
       }
       final res = await request.send();
       final respStr = await res.stream.bytesToString();

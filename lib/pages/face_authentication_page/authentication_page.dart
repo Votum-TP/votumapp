@@ -4,16 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:lottie/lottie.dart';
 import 'package:votum/providers/CameraProvider.dart';
+import 'package:votum/providers/Voto_Provider.dart';
 import 'package:votum/utils/alert.dart';
 
+import '../../main.dart';
 import 'components/CamaraDetectionPreview.dart';
 import 'components/Cameraheader.dart';
 
 List<CameraDescription>? cameras;
 
 class AuthenticationPage extends StatefulWidget {
-  //final String CodigoUsuario;
-  //final int IdEleccion;
+  final  IdEleccion;
+
+  const AuthenticationPage({super.key, required this.IdEleccion});
 
   @override
   State<AuthenticationPage> createState()  => _AuthenticationPageState();
@@ -24,6 +27,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
 
   late File imageFile;
   late CameraController controller;
+  VotoProvider votoProvider = new VotoProvider();
   @override
   void initState() {
 
@@ -141,7 +145,8 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                   TextButton(
                     child: Text('YES'),
                     onPressed: () {
-                      Navigator.of(context).pop(true);
+                      votoProvider.autenticarVoto(localStorage.get('codigo').toString(), widget.IdEleccion, XFile(xfile.path), context);
+
                     },
                   )
                 ],
