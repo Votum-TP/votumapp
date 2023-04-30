@@ -175,28 +175,28 @@ class _ElectionDetailState extends State<ElectionDetail> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 if(isbuttonVisible) ... [
-                                          MaterialButton(
-                                height: 40*fem,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
-                                color: Color(0xFF3F468F),
-                                onPressed: () {
-                                  crearAlert(context);
+                                  MaterialButton(
+                                    height: 40*fem,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                                    color: Color(0xFF3F468F),
+                                    onPressed: () {
+                                      crearAlert(context);
 
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 42.0),
-                                  child: Text(
-                                      "Comenzar",
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 11*ffem,
-                                          fontWeight: FontWeight.w500,
-                                          height: 1.5*ffem/fem,
-                                          color: Color(0xffffffff))
-                                  ),
-                                ),
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10.0, horizontal: 42.0),
+                                      child: Text(
+                                          "Comenzar",
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 11*ffem,
+                                              fontWeight: FontWeight.w500,
+                                              height: 1.5*ffem/fem,
+                                              color: Color(0xffffffff))
+                                      ),
+                                    ),
 
-                              )
+                                  )
                                 ]
                                 else ...[
                                   Container(

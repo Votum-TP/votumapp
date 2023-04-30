@@ -11,6 +11,7 @@ import '../helpers/constant_helpers.dart';
 import '../main.dart';
 import '../pages/elections_page/VotoEnviado.dart';
 import '../pages/face_authentication_page/face_noverify.dart';
+import '../pages/face_authentication_page/face_verify.dart';
 import '../utils/alert.dart';
 class VotoProvider {
 
@@ -40,7 +41,7 @@ class VotoProvider {
           context, "Algo salió mal", "No se ha podido confirmar.", "aceptar");
     }
   }
-  autenticarVoto(String CodigoUsuario, int IdEleccion, XFile imageFile, BuildContext context ) async {
+  autenticarVoto(String CodigoUsuario, int IdEleccion, File imageFile, BuildContext context ) async {
     try{
       var request = await http.MultipartRequest
         ("POST", Uri.parse("${Constants.URL}/api/Votos/AutenticarVotoReconocimientoFacial")
@@ -50,8 +51,6 @@ class VotoProvider {
       if(imageFile != null){
         request.files.add(await http.MultipartFile.fromPath('Target', imageFile.path));
         request.fields.addAll(<String, String>{'CodigoUsuario': localStorage.get('codigo').toString(), 'IdEleccion': IdEleccion.toString()});
-        request.fields['CodigoUsuario'] = localStorage.get('codigo').toString();
-        request.fields['IdEleccion'] = IdEleccion.toString();
       }
       final res = await request.send();
       final respStr = await res.stream.bytesToString();
@@ -59,7 +58,7 @@ class VotoProvider {
     if (res.statusCode == 200) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) =>
-              EnviadoVoto()));
+              FaceVerify(rostro: imageFile,)));
     }
     if(res.statusCode == 404) {
       Navigator.of(context).push(MaterialPageRoute(

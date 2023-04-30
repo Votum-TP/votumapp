@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../autentication_otp/otp_page.dart';
 
 class FaceNoneVerify extends StatelessWidget {
-  final XFile rostro;
+  final File rostro;
   const FaceNoneVerify({ required this.rostro});
   @override
   Widget build(BuildContext context) {
@@ -15,6 +17,14 @@ class FaceNoneVerify extends StatelessWidget {
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
+
+    convertFileToImage(File picture)  {
+      List<int> imageBase64 = picture.readAsBytesSync();
+      String imageAsString = base64Encode(imageBase64);
+      Uint8List uint8list = base64.decode(imageAsString);
+      Image image = Image.memory(uint8list);
+      return image;
+    }
 
     return Scaffold(
       appBar: AppBar(

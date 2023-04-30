@@ -9,7 +9,7 @@ List<InstructionContent> contents = [
   InstructionContent(
       image: 'Assets/images/instruccion1.png',
       text: 'Recuerde realizar su voto en privado, sin comentar su elección'
-          ' fingerprint and PIN. Impersonation is an offence.'),
+          ' ¡HAGALO EN PRIVADO!'),
 
   InstructionContent(
       image: 'Assets/images/instruccion3.png',

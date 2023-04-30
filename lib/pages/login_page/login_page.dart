@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:votum/animation/FadeAnimation.dart';
 import 'package:votum/providers/UserProvider.dart';
+import 'package:votum/utils/alert.dart';
 import 'package:votum/widgets/Custom_drawer.dart';
 
 class LoginPage extends StatefulWidget {
@@ -12,6 +13,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  Alert alert = new Alert();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String? _codigoAlumno="";
   String? _password="";
@@ -105,6 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                                     fontFamily: "Poppins",
                                     fontSize: 16.0,
                                     color: Colors.grey[400]),
+
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   icon: Icon(
@@ -117,6 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                                       fontFamily: "Poppins", fontSize: 15.0),
                                 ),
                                 onChanged: (value) => setState(() => _codigoAlumno = value),
+                                controller: _emailController,
                                 validator: (data) {
                                   if (data == null || data.isEmpty) {
                                     return 'Ingrese un correo';
@@ -132,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                                 obscureText: _obscureTextLogin,
                                 enableSuggestions: false,
                                 autocorrect: false,
-                                controller: loginPasswordController,
+                                controller: _passwordController,
                                 focusNode: myFocusNodePasswordLogin,
                                 style: TextStyle(
                                     fontFamily: "WorkSansSemiBold",
@@ -149,6 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                                   hintStyle: TextStyle(
                                       fontFamily: "WorkSansSemiBold", fontSize: 15.0),
                                 ),
+
                                 onChanged: (value) => setState(() => _password = value),
                                 validator: (data) {
                                   if (data == null || data.isEmpty) {
@@ -169,7 +176,12 @@ class _LoginPageState extends State<LoginPage> {
                         color: Color(0xFF3F468F),
                         onPressed: () {
                           FocusScope.of(context).unfocus();
-                          this._submit();
+                            if (_emailController.text.isNotEmpty &&
+                            _passwordController.text.isNotEmpty) {
+                              this._submit();
+                            } else {
+                              alert.createAlert(context, "Algo salió mal", "Ingrese correctamente sus datos", "aceptar");
+                            }
 
                         },
                         child: Padding(

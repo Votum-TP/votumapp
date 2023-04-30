@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:votum/providers/CameraProvider.dart';
 import 'package:votum/providers/Voto_Provider.dart';
@@ -47,7 +48,13 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
     return Scaffold(
 
       appBar: AppBar(
-        title: Text('Autenticación'),
+        title: Text(
+          "Autenticación Facial",
+          style: GoogleFonts.poppins(
+              fontSize: 19.0,
+              color: Colors.white,
+              fontWeight: FontWeight.bold),
+        ),
       ),
       body: FutureBuilder(
         future: initializationCamera(),
@@ -145,7 +152,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                   TextButton(
                     child: Text('YES'),
                     onPressed: () {
-                      votoProvider.autenticarVoto(localStorage.get('codigo').toString(), widget.IdEleccion, XFile(xfile.path), context);
+                      votoProvider.autenticarVoto(localStorage.get('codigo').toString(), widget.IdEleccion, imageFile, context);
 
                     },
                   )

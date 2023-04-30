@@ -5,6 +5,7 @@ import 'package:votum/model/Partido.dart';
 import 'package:votum/providers/Candidatos_Provider.dart';
 import 'dart:math' as math;
 import '../../utils/alert.dart';
+import '../autentication_otp/components/app_colors.dart';
 import 'confirm_vote.dart';
 
 class ElectionPoll extends StatefulWidget {
@@ -53,6 +54,7 @@ class _ElectionPollState extends State<ElectionPoll>{
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
+    bool isVisible = true;
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
@@ -123,16 +125,7 @@ class _ElectionPollState extends State<ElectionPoll>{
                                     ),
                                   ),
                                 ),
-                                Text(
-                                  // 6x3 (502:167)
-                                  '05:00',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14*ffem,
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5*ffem/fem,
-                                    color: Color(0xff3f468f),
-                                  ),
-                                ),
+
                               ],
                             ),
                           ),

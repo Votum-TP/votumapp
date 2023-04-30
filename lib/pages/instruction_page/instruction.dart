@@ -60,12 +60,12 @@ class _InstructionScreenState extends State<InstructionScreen> {
                           width: MediaQuery.of(context).size.width * 0.9,
                           height: MediaQuery.of(context).size.height * 0.4,
                         ),
-                        SizedBox(height: 30),
+                        SizedBox(height: 15),
                         Text(
                           contents[i].text!,
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: 5),
                       ],
                     ),
                   );
@@ -112,7 +112,8 @@ class _InstructionScreenState extends State<InstructionScreen> {
       margin: EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: currentIndex == index ? Color(0xff1B2AC2) : Color(0xFFD9D9D9),
+        color: currentIndex == index ? Color(0xff3F468F
+        ) : Color(0xFFD9D9D9),
       ),
     );
   }

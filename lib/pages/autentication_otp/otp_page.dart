@@ -91,6 +91,11 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                                 visible: isResentOn,
                                 child: GestureDetector(
                                   onTap: () {
+                                    setState(() {
+                                      isVisible = true;
+                                      isResentOn = true;
+                                    });
+                                    print(isVisible);
                                     /*context
                                         .read<FirebaseAuthViewModel>()
                                         .resentOTPtoPhone(context);*/
