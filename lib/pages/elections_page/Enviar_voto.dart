@@ -8,10 +8,9 @@ import 'package:votum/providers/Voto_Provider.dart';
 
 import '../../main.dart';
 
-class FaceVerify extends StatelessWidget {
-  final File rostro;
+class EnviarVoto extends StatelessWidget {
   final ElectionId;
-  const FaceVerify({ required this.rostro, required this.ElectionId});
+  const EnviarVoto({ required this.ElectionId});
   @override
   Widget build(BuildContext context) {
     double baseWidth = 360;
@@ -47,7 +46,7 @@ class FaceVerify extends StatelessWidget {
                 height: 400*fem,
                 decoration: BoxDecoration (
                   image: DecorationImage (
-                    image: (rostro != null) ? FileImage(rostro) as ImageProvider : AssetImage("assets/xxx.png"),
+                    image: AssetImage("assets/xxx.png"),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -125,44 +124,44 @@ class FaceVerify extends StatelessWidget {
                               ),
                             ),
 
-                              Container(
-                                // buttonG9Z (168:7275)
-                                margin: EdgeInsets.fromLTRB(31*fem, 0*fem, 31*fem, 0*fem),
-                                child: TextButton(
-                                  onPressed: () {
-                                    votoProvider.enviarVoto(localStorage.get('codigo').toString(), ElectionId,context);
-                                  },
-                                  style: TextButton.styleFrom (
-                                    padding: EdgeInsets.zero,
+                            Container(
+                              // buttonG9Z (168:7275)
+                              margin: EdgeInsets.fromLTRB(31*fem, 0*fem, 31*fem, 0*fem),
+                              child: TextButton(
+                                onPressed: () {
+                                  votoProvider.enviarVoto(localStorage.get('codigo').toString(), ElectionId,context);
+                                },
+                                style: TextButton.styleFrom (
+                                  padding: EdgeInsets.zero,
+                                ),
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 41*fem,
+                                  decoration: BoxDecoration (
+                                    color: Color(0xff3f468f),
+                                    borderRadius: BorderRadius.circular(10*fem),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Color(0x3f000000),
+                                        offset: Offset(0*fem, 8*fem),
+                                        blurRadius: 5*fem,
+                                      ),
+                                    ],
                                   ),
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: 41*fem,
-                                    decoration: BoxDecoration (
-                                      color: Color(0xff3f468f),
-                                      borderRadius: BorderRadius.circular(10*fem),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Color(0x3f000000),
-                                          offset: Offset(0*fem, 8*fem),
-                                          blurRadius: 5*fem,
-                                        ),
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        'Enviar voto',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 11*ffem,
-                                          fontWeight: FontWeight.w500,
-                                          height: 1.5*ffem/fem,
-                                          color: Color(0xffffffff),
-                                        ),
+                                  child: Center(
+                                    child: Text(
+                                      'Enviar voto',
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 11*ffem,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.5*ffem/fem,
+                                        color: Color(0xffffffff),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
+                            ),
                           ],
                         ),
                       ),

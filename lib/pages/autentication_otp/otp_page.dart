@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:votum/providers/Voto_Provider.dart';
 
+import '../../main.dart';
 import 'components/TextSizes.dart';
 import 'components/app_colors.dart';
 import 'components/otp_field.dart';
@@ -14,6 +17,9 @@ import 'components/test_style.dart';
 
 class OtpVerificationView extends StatefulWidget {
 
+  final ElectionId;
+
+  const OtpVerificationView({super.key, required this.ElectionId});
   @override
   _OtpVerificationViewState createState() => _OtpVerificationViewState();
 }
@@ -21,12 +27,14 @@ class OtpVerificationView extends StatefulWidget {
 class _OtpVerificationViewState extends State<OtpVerificationView> {
   @override
   Widget build(BuildContext context) {
+    final OtpValue = null;
+    VotoProvider votoProvider =  new VotoProvider();
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
     bool isVisible = true;
     bool isResentOn = true;
-    final otpValue = null;
+    var otpValue = null;
     return Scaffold(
       body: WillPopScope(
         onWillPop: () async {
@@ -52,11 +60,11 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                       Text(
                         "Código de verificación",
                         style: GoogleFonts.poppins(
-                        fontSize: 22*ffem,
-                        fontWeight: FontWeight.w700,
-                        height: 1.5*ffem/fem,
-                        color: Color(0xff3f468f),
-                      ),
+                          fontSize: 22*ffem,
+                          fontWeight: FontWeight.w700,
+                          height: 1.5*ffem/fem,
+                          color: Color(0xff3f468f),
+                        ),
                       ),
                       Center(
                         child: SizedBox(
@@ -75,7 +83,20 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                         ),
                       ),
                       AppSizes.kHeight30,
-                      const OtpTextfieldWidget(),
+                      OtpTextField(
+                        inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r'\s'))],
+                      numberOfFields: 6,
+                      fieldWidth: 45,
+                      borderColor: AppColors.kButtonColor,
+                      focusedBorderColor: AppColors.kButtonColor,
+                      cursorColor: AppColors.lightBlackColor,
+                      onCodeChanged: (String code) {
+                        //Provider.of<FirebaseAuthViewModel>(context, listen: false).setOtp(code);
+                      },
+                      onSubmit: (String verificationCode) {
+                        otpValue = verificationCode;
+                      },
+                  ),
                       AppSizes.kHeight30,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -96,9 +117,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                                       isResentOn = true;
                                     });
                                     print(isVisible);
-                                    /*context
-                                        .read<FirebaseAuthViewModel>()
-                                        .resentOTPtoPhone(context);*/
+                                    votoProvider.enviarOTP(localStorage.get('codigo').toString(), widget.ElectionId, context);
                                   },
                                   child:  Text(
                                     "Resend ",
@@ -145,11 +164,9 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                         child: ElevatedButton(
 
                           onPressed:
-
                                () {
-                            /*context
-                                .read<FirebaseAuthViewModel>()
-                                .firbaseAuthenticationWithOTP(context);*/
+                            votoProvider.autenticarOTP(localStorage.get('codigo').toString(), widget.ElectionId, otpValue, context);
+
                           },
                           style: ElevatedButton.styleFrom(
                             elevation: 0,

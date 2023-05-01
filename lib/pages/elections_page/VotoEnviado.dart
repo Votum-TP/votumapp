@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EnviadoVoto extends StatelessWidget {
+  final ElectionId;
+
+  const EnviadoVoto({super.key, required this.ElectionId});
   @override
   Widget build(BuildContext context) {
     double baseWidth = 360;

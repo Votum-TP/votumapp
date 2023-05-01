@@ -5,6 +5,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:votum/pages/autentication_otp/otp_page.dart';
+import 'package:votum/pages/elections_page/Enviar_voto.dart';
 import 'package:votum/pages/face_authentication_page/authentication_page.dart';
 
 import '../helpers/constant_helpers.dart';
@@ -31,6 +32,8 @@ class VotoProvider {
         headers: {"Content-Type": "application/json;  charset=UTF-8",
           HttpHeaders.authorizationHeader: 'Bearer ' + localStorage.get('token').toString(),},
         body: bodyRequest);
+    var jsonData =
+    json.decode(Utf8Decoder().convert(response.bodyBytes).toString());
 
     if (response.statusCode == 200) {
       Navigator.of(context).push(MaterialPageRoute(
@@ -58,26 +61,97 @@ class VotoProvider {
     if (res.statusCode == 200) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) =>
-              FaceVerify(rostro: imageFile,)));
+              FaceNoneVerify(rostro: imageFile, ElectionId: IdEleccion,)));
+
+      /*Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) =>
+              FaceVerify(rostro: imageFile, ElectionId: IdEleccion,)));*/
     }
     if(res.statusCode == 404) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) =>
-          FaceNoneVerify(rostro: imageFile,)));
+          FaceNoneVerify(rostro: imageFile, ElectionId: IdEleccion,)));
     }
     } catch (error){
       log(error.toString());
     }
   }
 
-  enviarVoto(String CodigoUsuario, int IdEleccion) {
+  enviarVoto(String CodigoUsuario, int IdEleccion,BuildContext context) async {
+    Map data = {
+      'CodigoUsuario' : CodigoUsuario,
+      'IdEleccion' :IdEleccion,
+    };
+    var bodyRequest = json.encode(data);
 
+    print(data);
+
+    var response = await http.post(
+        Uri.parse("${Constants.URL}/api/Votos/EnviarVoto"),
+        headers: {"Content-Type": "application/json;  charset=UTF-8",
+          HttpHeaders.authorizationHeader: 'Bearer ' + localStorage.get('token').toString(),},
+        body: bodyRequest);
+
+    var jsonData =
+    json.decode(Utf8Decoder().convert(response.bodyBytes).toString());
+
+    if (response.statusCode == 200) {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) =>
+              EnviadoVoto(ElectionId: IdEleccion,)));
+    } else {
+      _alert.createAlert(
+          context, "Algo salió mal", "No se ha podido enviar.", "aceptar");
+    }
 
   }
-  autenticarOTP(){
 
+  autenticarOTP(String CodigoUsuario, int IdEleccion, String Codigo, BuildContext context) async {
+    Map data = {
+      'CodigoUsuario' : CodigoUsuario,
+      'IdEleccion' :IdEleccion,
+      'CodigoOTP' : Codigo,
+    };
+    var bodyRequest = json.encode(data);
+    var response = await http.post(
+        Uri.parse("${Constants.URL}/api/Votos/EnviarVoto"),
+        headers: {"Content-Type": "application/json;  charset=UTF-8",
+          HttpHeaders.authorizationHeader: 'Bearer ' + localStorage.get('token').toString(),},
+        body: bodyRequest);
+
+    if (response.statusCode == 200) {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) =>
+              EnviarVoto(ElectionId: IdEleccion,)));
+    } else {
+      _alert.createAlert(
+          context, "Algo salió mal", "No se ha podido autenticar.", "aceptar");
+    }
   }
-  renviarOTP(){
+  enviarOTP(String CodigoUsuario, int IdEleccion,BuildContext context) async {
+    Map data = {
+      'CodigoUsuario' : CodigoUsuario,
+      'IdEleccion' :IdEleccion,
+    };
+    var bodyRequest = json.encode(data);
+    var response = await http.post(
+        Uri.parse("${Constants.URL}/api/Votos/EnviarCodigoOTP"),
+        headers: {"Content-Type": "application/json;  charset=UTF-8",
+          HttpHeaders.authorizationHeader: 'Bearer ' + localStorage.get('token').toString(),},
+        body: bodyRequest);
+
+    var jsonData =
+    json.decode(Utf8Decoder().convert(response.bodyBytes).toString());
+
+
+    if (response.statusCode == 200) {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) =>
+              OtpVerificationView(ElectionId: IdEleccion,)));
+    } else {
+      _alert.createAlert(
+          context, "Algo salió mal", "No se ha podido enviar.", "aceptar");
+    }
 
   }
 

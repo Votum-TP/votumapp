@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:votum/providers/Voto_Provider.dart';
 
 import 'app_colors.dart';
 
@@ -9,6 +10,7 @@ class OtpTextfieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    VotoProvider voto = new VotoProvider();
     return OtpTextField(
       inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r'\s'))],
       numberOfFields: 6,

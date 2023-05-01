@@ -5,14 +5,19 @@ import 'dart:typed_data';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:votum/providers/Voto_Provider.dart';
 
+import '../../main.dart';
 import '../autentication_otp/otp_page.dart';
 
 class FaceNoneVerify extends StatelessWidget {
   final File rostro;
-  const FaceNoneVerify({ required this.rostro});
+  final ElectionId;
+  const FaceNoneVerify({ required this.rostro, required this.ElectionId});
   @override
   Widget build(BuildContext context) {
+
+    VotoProvider votoProvider = new VotoProvider();
     // TODO: implement build
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -54,9 +59,7 @@ class FaceNoneVerify extends StatelessWidget {
                 height: 400*fem,
                 decoration: BoxDecoration (
                   image: DecorationImage (
-                    image: AssetImage (
-                      'assets/happy-path-movil/images/scanning-face-3-bg.png',
-                    ),
+                    image: (rostro != null) ? FileImage(rostro) as ImageProvider : AssetImage("assets/xxx.png"),
                   ),
                 ),
                 child: Container(
@@ -134,9 +137,7 @@ class FaceNoneVerify extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: (){
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                    OtpVerificationView()));
+                                votoProvider.enviarOTP(localStorage.get('codigo').toString(), ElectionId, context);
                               },
                               child: Container(
                                 // buttonokF (138:6465)
