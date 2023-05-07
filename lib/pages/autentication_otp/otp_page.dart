@@ -25,6 +25,13 @@ class OtpVerificationView extends StatefulWidget {
 }
 
 class _OtpVerificationViewState extends State<OtpVerificationView> {
+  int start = 30;
+  bool wait = false;
+  String buttonName = "Send";
+  TextEditingController phoneController = TextEditingController();
+  //AuthClass authClass = AuthClass();
+  String verificationIdFinal = "";
+  String smsCode = "";
   @override
   Widget build(BuildContext context) {
     final OtpValue = null;
@@ -91,7 +98,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                       focusedBorderColor: AppColors.kButtonColor,
                       cursorColor: AppColors.lightBlackColor,
                       onCodeChanged: (String code) {
-                        //Provider.of<FirebaseAuthViewModel>(context, listen: false).setOtp(code);
+                        otpValue = code;
                       },
                       onSubmit: (String verificationCode) {
                         otpValue = verificationCode;
@@ -195,6 +202,80 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
             ),
           ),
 
+        ),
+      ),
+    );
+  }
+  Widget otpField() {
+    return OTPTextField(
+      length: 6,
+      width: MediaQuery.of(context).size.width - 34,
+      fieldWidth: 58,
+      otpFieldStyle: OtpFieldStyle(
+        backgroundColor: Color(0xff1d1d1d),
+        borderColor: Colors.white,
+      ),
+      style: TextStyle(fontSize: 17, color: Colors.white),
+      textFieldAlignment: MainAxisAlignment.spaceAround,
+      fieldStyle: FieldStyle.underline,
+      onCompleted: (pin) {
+        print("Completed: " + pin);
+        setState(() {
+          smsCode = pin;
+        });
+      },
+    );
+  }
+
+  Widget textField() {
+    return Container(
+      width: MediaQuery.of(context).size.width - 40,
+      height: 60,
+      decoration: BoxDecoration(
+        color: Color(0xff1d1d1d),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: TextFormField(
+        controller: phoneController,
+        style: TextStyle(color: Colors.white, fontSize: 17),
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: "Enter your phone Number",
+          hintStyle: TextStyle(color: Colors.white54, fontSize: 17),
+          contentPadding:
+          const EdgeInsets.symmetric(vertical: 19, horizontal: 8),
+          prefixIcon: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 15),
+            child: Text(
+              " (+91) ",
+              style: TextStyle(color: Colors.white, fontSize: 17),
+            ),
+          ),
+          suffixIcon: InkWell(
+            onTap: wait
+                ? null
+                : () async {
+              setState(() {
+                start = 30;
+                wait = true;
+                buttonName = "Resend";
+              });
+              /* await authClass.verifyPhoneNumber(
+                  "+91 ${phoneController.text}", context, setData);*/
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+              child: Text(
+                buttonName,
+                style: TextStyle(
+                  color: wait ? Colors.grey : Colors.white,
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );

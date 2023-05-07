@@ -55,6 +55,16 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
               color: Colors.white,
               fontWeight: FontWeight.bold),
         ),
+        leading: GestureDetector(
+          onTap: (){
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+          ),
+        ),
+
       ),
       body: FutureBuilder(
         future: initializationCamera(),

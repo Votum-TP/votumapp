@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;
@@ -21,7 +22,7 @@ class PrimaryButton extends StatelessWidget {
           ),
         ),
         onPressed: onPress,
-        child: Text(text),
+        child: Text(text,style: GoogleFonts.poppins(),),
       ),
     );
   }

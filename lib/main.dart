@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:votum/pages/Scene.dart';
 import 'package:votum/pages/autentication_otp/otp_page.dart';
+import 'package:votum/pages/autentication_otp/otp_view_page.dart';
 import 'package:votum/pages/elections_page/VotoEnviado.dart';
 import 'package:votum/pages/elections_page/election_page.dart';
 import 'package:votum/pages/elections_page/election_result.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
         Locale('en', ''), // English, no country code
         Locale('es', ''), // Spanish, no country code
       ],
-      home: LoginPage(),
+      home: PhoneAuthPage(),
       initialRoute: '/',
       routes: {
         'elections': (context) => VotePage(),

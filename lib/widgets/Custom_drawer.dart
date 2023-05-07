@@ -27,6 +27,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   title: Text('Elecciones'),
                   subtitle: Text('Ir a elecciones'),
                   leading: _leadingIcon(Icons.home),
+                  onTap: (){
+                    Navigator.pushNamed(context, 'elections');
+                  },
                 ),
                 SizedBox(height: 20,),
                 ListTile(
@@ -42,8 +45,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           backgroundColor: Colors.transparent,
                           backgroundImage: AssetImage('assets/icons/icon.png'),
                         ),
-                        applicationName: 'ElectChain',
-                        applicationLegalese: 'Brave Tech Solutions');
+                        applicationName: 'Votum',
+                        );
                   },
                 ),
                 SizedBox(height: 20,),

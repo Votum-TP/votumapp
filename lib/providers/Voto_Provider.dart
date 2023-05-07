@@ -59,13 +59,13 @@ class VotoProvider {
       final respStr = await res.stream.bytesToString();
 
     if (res.statusCode == 200) {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (BuildContext context) =>
-              FaceNoneVerify(rostro: imageFile, ElectionId: IdEleccion,)));
-
       /*Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) =>
-              FaceVerify(rostro: imageFile, ElectionId: IdEleccion,)));*/
+              FaceNoneVerify(rostro: imageFile, ElectionId: IdEleccion,)));*/
+
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) =>
+              FaceVerify(rostro: imageFile, ElectionId: IdEleccion,)));
     }
     if(res.statusCode == 404) {
       Navigator.of(context).push(MaterialPageRoute(
@@ -118,6 +118,9 @@ class VotoProvider {
         headers: {"Content-Type": "application/json;  charset=UTF-8",
           HttpHeaders.authorizationHeader: 'Bearer ' + localStorage.get('token').toString(),},
         body: bodyRequest);
+
+    var jsonData =
+    json.decode(Utf8Decoder().convert(response.bodyBytes).toString());
 
     if (response.statusCode == 200) {
       Navigator.of(context).push(MaterialPageRoute(

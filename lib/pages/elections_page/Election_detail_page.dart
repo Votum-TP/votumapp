@@ -175,13 +175,12 @@ class _ElectionDetailState extends State<ElectionDetail> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 if(isbuttonVisible) ... [
-                                  MaterialButton(
+                                  Center(child: MaterialButton(
                                     height: 40*fem,
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
                                     color: Color(0xFF3F468F),
                                     onPressed: () {
                                       crearAlert(context);
-
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -196,7 +195,7 @@ class _ElectionDetailState extends State<ElectionDetail> {
                                       ),
                                     ),
 
-                                  )
+                                  ),)
                                 ]
                                 else ...[
                                   Container(
@@ -249,61 +248,7 @@ class _ElectionDetailState extends State<ElectionDetail> {
 
     );
   }
-  buildTextTitleVariation1(String text){
-    return Padding(
-      padding: EdgeInsets.only(bottom: 8),
-      child: Text(
-        text,
-        style: GoogleFonts.poppins(
-          fontSize: 25,
-          fontWeight: FontWeight.w900,
-          color: Colors.black,
-        ),
-      ),
-    );
-  }
 
-  buildTextTitleVariation2(String text, bool opacity){
-    return Padding(
-      padding: EdgeInsets.only(bottom: 16),
-      child: Text(
-        text,
-        style: GoogleFonts.poppins(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: opacity ? Colors.grey[400] : Colors.black,
-        ),
-      ),
-    );
-  }
-
-  buildTextSubTitleVariation1(String text){
-    return Padding(
-      padding: EdgeInsets.only(bottom: 8),
-      child: Text(
-        text,
-        style: GoogleFonts.poppins(
-          fontSize: 10,
-          fontWeight: FontWeight.bold,
-          color: Colors.grey[400],
-        ),
-      ),
-    );
-  }
-
-  buildTextSubTitleVariation2(String text){
-    return Padding(
-      padding: EdgeInsets.only(bottom: 8),
-      child: Text(
-        text,
-        overflow: TextOverflow.ellipsis,
-        style: GoogleFonts.poppins(
-          fontSize: 16,
-          color: Colors.grey[400],
-        ),
-      ),
-    );
-  }
 
   /*List<Widget> buildParticipantes(){
     List<Widget> list = [];
@@ -378,13 +323,14 @@ class _ElectionDetailState extends State<ElectionDetail> {
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            child: Text('Volver'),
+                            child: Text('Volver',style: GoogleFonts.poppins(),),
                           ),
+                          SizedBox(width: 30,),
                           TextButton(
                             onPressed: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context)=> InstructionScreen(electionId: widget.eleccion.Id.toString(),)));
                             },
-                            child: Text('Comenzar'),
+                            child: Text('Comenzar',style: GoogleFonts.poppins(),),
                           ),
                         ],
                       )
@@ -396,7 +342,7 @@ class _ElectionDetailState extends State<ElectionDetail> {
               left: 16,
               right: 16,
               child: CircleAvatar(
-                backgroundColor: Colors.pinkAccent,
+                backgroundColor: Color(0xffF69447),
                 radius: 66,
                 child: Icon(
                   Icons.report_gmailerrorred,
@@ -441,7 +387,6 @@ class _ElectionDetailState extends State<ElectionDetail> {
           ),
         ],
       );*/
-
 
     });
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:votum/pages/elections_page/election_poll.dart';
 
 import '../../model/instruction_contents.dart';
@@ -60,10 +61,11 @@ class _InstructionScreenState extends State<InstructionScreen> {
                           width: MediaQuery.of(context).size.width * 0.9,
                           height: MediaQuery.of(context).size.height * 0.4,
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: 19),
                         Text(
                           contents[i].text!,
                           textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(),
                         ),
                         SizedBox(height: 5),
                       ],
@@ -88,6 +90,7 @@ class _InstructionScreenState extends State<InstructionScreen> {
                 text: currentIndex == contents.length - 1
                     ? 'Ingresar'
                     : 'Continuar',
+
                 onPress: () {
                   if (currentIndex == contents.length - 1) {
                     Navigator.push(context, MaterialPageRoute(builder: (context)=> ElectionPoll(userId: 1, electionId: int.parse(widget.electionId),)));
