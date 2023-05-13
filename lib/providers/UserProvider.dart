@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:votum/main.dart';
 
 import '../helpers/constant_helpers.dart';
@@ -19,7 +20,7 @@ class UserProvider {
   };
 
 
-  Future<APIResponse<LoginResponse>> login(String uID, String uPwd) {
+  Future<APIResponse<LoginResponse>> login(String uID, String uPwd, BuildContext context) {
     Userlogin log=new Userlogin();
     log.codigoUsuario=uID;
     log.contrasena=uPwd;
@@ -44,7 +45,8 @@ class UserProvider {
             data: LoginResponse.fromJson(jsonData));
       } else {
         final jsonData = json.decode(data.body);
-
+        _alert.createAlert(
+            context, "Algo salió mal", "No se ha podido confirmar.", "aceptar");
 
         return APIResponse<LoginResponse>(
             error: true, errorMessage: jsonData['mensaje']);

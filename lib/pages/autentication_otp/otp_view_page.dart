@@ -16,6 +16,9 @@ import 'components/app_colors.dart';
 import 'components/test_style.dart';
 
 class PhoneAuthPage  extends StatefulWidget {
+  final ElectionId;
+
+  const PhoneAuthPage({super.key, required this.ElectionId});
   @override
   _PhoneAuthPageState createState() => _PhoneAuthPageState();
 
@@ -96,7 +99,7 @@ class _PhoneAuthPageState extends State<PhoneAuthPage>{
                                     isResentOn = true;
                                   });
                                   print(isVisible);
-                                  //votoProvider.enviarOTP(localStorage.get('codigo').toString(), widget.ElectionId, context);
+                                  votoProvider.enviarOTP(localStorage.get('codigo').toString(), widget.ElectionId, context);
                                 },
                                 child:  Text(
                                   "Resend ",
@@ -145,7 +148,7 @@ class _PhoneAuthPageState extends State<PhoneAuthPage>{
                         onPressed:
                             () {
                           print(smsCode);
-                          //votoProvider.autenticarOTP(localStorage.get('codigo').toString(), widget.ElectionId, otpValue, context);
+                          votoProvider.autenticarOTP(localStorage.get('codigo').toString(), widget.ElectionId, smsCode, context);
 
                         },
                         style: ElevatedButton.styleFrom(

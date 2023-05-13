@@ -91,105 +91,116 @@ class ConfirmVote extends StatelessWidget {
                         height: 52*fem,
                       ),
                       Container(
-                        // politicpartyVgF (502:207)
-                        padding: EdgeInsets.fromLTRB(14.17*fem, 11.81*fem, 15.5*fem, 13.81*fem),
-                        width: double.infinity,
-                        height: 186.07*fem,
-                        decoration: BoxDecoration (
-                          border: Border.all(color: Color(0xffc31abd)),
-                          borderRadius: BorderRadius.circular(4.7242808342*fem),
-
-                        ),
-                        child: Container(
-                          // frame18Uo5 (502:208)
+                          // politicpartyVgF (502:207)
+                          padding: EdgeInsets.fromLTRB(14.17*fem, 11.81*fem, 15.5*fem, 13.81*fem),
                           width: double.infinity,
-                          height: double.infinity,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                // avaBhV (502:209)
-                                margin: EdgeInsets.fromLTRB(0*fem, 2*fem, 19*fem, 0*fem),
-                                width: 92.33*fem,
-                                height: 92.33*fem,
-                                child: Image.network(
-                                  'https://i.imgur.com/CwA8qP6.png',
+                          height: 186.07*fem,
+                          decoration: BoxDecoration (
+                            border: Border.all(color: Color(0xffc31abd)),
+                            borderRadius: BorderRadius.circular(4.7242808342*fem),
+                          ),
+                          child: Container(
+                            // frame18Uo5 (502:208)
+                            width: double.infinity,
+                            height: double.infinity,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  // avaBhV (502:209)
+                                  margin: EdgeInsets.fromLTRB(0*fem, 2*fem, 17*fem, 0*fem),
                                   width: 92.33*fem,
                                   height: 92.33*fem,
+                                  child: Image.network(
+                                    'https://i.imgur.com/CwA8qP6.png',
+                                    width: 92.33*fem,
+                                    height: 92.33*fem,
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                // description1Rd (502:212)
-                                height: double.infinity,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      // partidoorganizate6T5 (502:213)
-                                      margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 4.72*fem),
-                                      child: Text(
-                                        Name,
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 11*ffem,
-                                          fontWeight: FontWeight.w600,
-                                          height: 1.5*ffem/fem,
-                                          color: Color(0xff9f2e64),
+                                Container(
+                                  // description1Rd (502:212)
+                                  height: double.infinity,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        // partidoorganizate6T5 (502:213)
+                                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 4.72*fem),
+                                        child: Text(
+                                          Name,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 11*ffem,
+                                            fontWeight: FontWeight.w600,
+                                            height: 1.5*ffem/fem,
+                                            color: Color(0xff9f2e64),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Container(
-                                      // representantemarcocorreawTh (502:214)
-                                      margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 6.72*fem),
-                                      child: Text(
-                                        'Representante: Marco Correa',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 9*ffem,
-                                          fontWeight: FontWeight.w400,
-                                          height: 1.5*ffem/fem,
-                                          color: Color(0xff000000),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      // propuestasloremipsumloremlores (502:215)
-                                      constraints: BoxConstraints (
-                                        maxWidth: 180*fem,
-                                      ),
-                                      child: RichText(
-                                        text: TextSpan(
+                                      Container(
+                                        // representantemarcocorreawTh (502:214)
+                                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 6.72*fem),
+                                        child: Text(
+                                          'Representante: Marco Correa',
                                           style: GoogleFonts.poppins(
                                             fontSize: 9*ffem,
-                                            fontWeight: FontWeight.w300,
+                                            fontWeight: FontWeight.w400,
                                             height: 1.5*ffem/fem,
                                             color: Color(0xff000000),
                                           ),
-                                          children: [
-                                            TextSpan(
-                                              text: '\n',
-                                            ),
-                                            TextSpan(
-                                              text: 'Propuestas:\n',
+                                        ),
+                                      ),
+                                      Container(
+
+                                        // propuestasloremipsumloremlores (502:215)
+                                        constraints: BoxConstraints (
+                                          maxWidth: 180*fem,
+                                        ),
+                                        child: RichText(
+                                          maxLines: 8,
+                                          overflow: TextOverflow.fade,
+                                            text: TextSpan(
                                               style: GoogleFonts.poppins(
                                                 fontSize: 9*ffem,
                                                 fontWeight: FontWeight.w300,
                                                 height: 1.5*ffem/fem,
-                                                color: Color(0xff9f2e64),
+                                                color: Color(0xff000000),
                                               ),
+                                              children: [
+                                                TextSpan(
+                                                  text: '\n',
+                                                ),
+                                                TextSpan(
+                                                  text: 'Propuestas:\n',
+                                                  style: GoogleFonts.poppins(
+                                                    fontSize: 9*ffem,
+                                                    fontWeight: FontWeight.w300,
+                                                    height: 1.5*ffem/fem,
+                                                    color: Color(0xff9f2e64),
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: Description,
+
+                                                  style: GoogleFonts.poppins(
+                                                    fontSize: 9*ffem,
+                                                    fontWeight: FontWeight.w300,
+                                                    height: 1.5*ffem/fem,
+                                                    color: Color(0xff9f2e64),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            TextSpan(
-                                              text: '-Lorem Ipsum lorem loresum loresumito\nadd more lorem\n-Lorem Ipsum lorem loresum loresumito\n-Lorem Ipsum lorem loresum loresumito\n-Lorem Ipsum lorem loresum loresumito\n-Lorem Ipsum lorem loresum loresumito',
-                                            ),
-                                          ],
                                         ),
+
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
+
                         ),
-                      ),
                       SizedBox(
                         height: 52*fem,
                       ),

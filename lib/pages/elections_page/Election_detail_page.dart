@@ -1,22 +1,32 @@
 
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:votum/model/Candidatos.dart';
+import 'package:votum/model/DetailElection.dart';
+import 'package:votum/model/Election.dart';
 import 'package:votum/model/Partido.dart';
 import 'package:votum/pages/elections_page/election_page.dart';
 import 'package:votum/pages/elections_page/election_poll.dart';
+import 'package:votum/pages/elections_page/election_result.dart';
 import 'package:votum/pages/instruction_page/instruction.dart';
 import 'package:votum/providers/Candidatos_Provider.dart';
+import 'package:votum/providers/Elections_Provider.dart';
 import 'package:votum/widgets/Custom_Dialog.dart';
 import 'dart:math' as math;
-
+import 'package:http/http.dart' as http;
+import '../../helpers/constant_helpers.dart';
+import '../../main.dart';
+import '../../model/DetailHolder.dart';
 import '../../model/Eleccion.dart';
 class ElectionDetail extends StatefulWidget {
 
-  final Eleccion eleccion;
+  final Election eleccion;
 
   ElectionDetail({ required this.eleccion});
 
@@ -26,26 +36,68 @@ class ElectionDetail extends StatefulWidget {
 
 class _ElectionDetailState extends State<ElectionDetail> {
   PartidosProvider voteProvider = new PartidosProvider();
+  ElectionProvideer electionProvideer = new ElectionProvideer();
   var partidos = <Partido>[];
   var partidos2 = <Partido>[];
   bool isbuttonVisible = false;
   bool isWinnerVisible = false;
+  int? CantidadVotosBlancom,CantidadVotosValidos;
+  bool? VotoEmitido;
+  late final DetailHolder detalleresultado;
+
+
+  getResultado() async {
+
+      final response = await http.get(
+        Uri.parse("${Constants.URL}/api/Elecciones/DetalleEleccionMovil/"+widget.eleccion.idEleccion.toString()+"/"+localStorage.get('codigo').toString()),
+        // Send authorization headers to the backend.
+        headers: {
+          "Content-Type": "application/json",
+          HttpHeaders.authorizationHeader: 'Bearer ' + localStorage.get('token').toString(),
+        },
+      );
+
+
+      final responseJson = json.decode(Utf8Decoder().convert(response.bodyBytes).toString());
+
+
+      if(response.statusCode == 200){
+
+        CantidadVotosBlancom = responseJson["CantidadVotosBlancos"];
+        CantidadVotosValidos = responseJson["CantidadVotosValidos"];
+        VotoEmitido = responseJson["VotoEmitido"];
+        print(CantidadVotosValidos);
+        //final aux = DetailHolder(nombre: responseJson["Nombre"], descripcion: responseJson["Descripcion"], fechaInicio: responseJson["FechaInicio"], estado: responseJson["Estado"], cantidadVotosBlancos: responseJson["CantidadVotosBlancos"], cantidadVotosValidos: responseJson["CantidadVotosValidos"], votoEmitido: responseJson["VotoEmitido"], fechaFin: responseJson["FechaFin"], partidos: null,);
+      } else {
+        print('Something went wrong. \nResponse Code : ${response.statusCode}');
+
+      }
+  }
+
+
   @override
   void initState() {
-    if(widget.eleccion.Estado=='iniciado'){
+    getResultado();
+
+    if(widget.eleccion.estado=='iniciado'){
       isbuttonVisible = true;
+    } else{
+      detalleresultado = DetailHolder(cantidadVotosBlancos: CantidadVotosBlancom, cantidadVotosValidos: CantidadVotosValidos, votoEmitido: VotoEmitido);
+      print(detalleresultado);
     }
+
     // TODO: implement initState
     Future.delayed(Duration.zero, () async {
       //here is the async code, you can execute any async code here
-      var res = await voteProvider.getpartidos(widget.eleccion.Id.toString());
-      for( var aux in res){
+      var res = await voteProvider.getpartidos(widget.eleccion.idEleccion.toString());
+
+
+     /* for( var aux in res){
         partidos2.add((aux as Partido));
-      }
+      }*/
       setState(() {
         partidos = partidos2;
 
-        print(partidos.length);
       });
     });
 
@@ -114,7 +166,7 @@ class _ElectionDetailState extends State<ElectionDetail> {
                                 maxWidth: 151*fem,
                               ),
                               child: Text(
-                                widget.eleccion.Nombre.toString(),
+                                widget.eleccion.nombre.toString(),
                                 style: GoogleFonts.poppins(
                                   fontSize: 22*ffem,
                                   fontWeight: FontWeight.w600,
@@ -132,7 +184,7 @@ class _ElectionDetailState extends State<ElectionDetail> {
                                 maxWidth: 311*fem,
                               ),
                               child: Text(
-                                'La presente elección tiene como fin elegir\na los representantes de las facultades de la \nUniversidad Nacional Federico Villareal\na través de los partidos participantes.',
+                                widget.eleccion.descripcion.toString(),
                                 style: GoogleFonts.poppins(
                                   fontSize: 14*ffem,
                                   fontWeight: FontWeight.w400,
@@ -325,10 +377,10 @@ class _ElectionDetailState extends State<ElectionDetail> {
                             },
                             child: Text('Volver',style: GoogleFonts.poppins(),),
                           ),
-                          SizedBox(width: 30,),
+                          SizedBox(width: 50,),
                           TextButton(
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> InstructionScreen(electionId: widget.eleccion.Id.toString(),)));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> InstructionScreen(electionId: widget.eleccion.idEleccion.toString(),)));
                             },
                             child: Text('Comenzar',style: GoogleFonts.poppins(),),
                           ),
@@ -520,7 +572,13 @@ class _ElectionDetailState extends State<ElectionDetail> {
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    return Container(
+    return GestureDetector(
+      onTap: (){
+        //print(detalleresultado);
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> ElectionResult(electionId: widget.eleccion.idEleccion, CantidadVotosBlancom: CantidadVotosBlancom,CantidadVotosValidos: CantidadVotosValidos,VotoEmitido: VotoEmitido,)));
+      },
+      
+      child: Container(
       // politicpartye2P (502:107)
       margin: EdgeInsets.fromLTRB(9*fem, 0*fem, 0*fem, 0*fem),
       padding: EdgeInsets.fromLTRB(14.17*fem, 13.64*fem, 5.17*fem, 8.64*fem),
@@ -545,8 +603,8 @@ class _ElectionDetailState extends State<ElectionDetail> {
                   margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 19*fem, 0*fem),
                   width: 53.72*fem,
                   height: 53.72*fem,
-                  child: Image.asset(
-                    'assets/mockups-movil/images/ava--gWf.png',
+                  child: Image.network(
+                    widget.eleccion.ganador!.imagen.toString(),
                     width: 53.72*fem,
                     height: 53.72*fem,
                   ),
@@ -562,7 +620,7 @@ class _ElectionDetailState extends State<ElectionDetail> {
                         // partidoyabastarRH (502:113)
                         margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 4.72*fem),
                         child: Text(
-                          'Partido Ya Basta',
+                          widget.eleccion.ganador!.nombre.toString(),
                           style: GoogleFonts.poppins(
                             fontSize: 11*ffem,
                             fontWeight: FontWeight.w400,
@@ -600,6 +658,6 @@ class _ElectionDetailState extends State<ElectionDetail> {
           ),
         ],
       ),
-    );
+    ),);
   }
 }

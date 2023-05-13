@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _obscureTextLogin = true;
   final FocusNode myFocusNodePasswordLogin = FocusNode();
   _submit() async{
-    final result = await uService.login(_codigoAlumno!.replaceAll(' ', '')!, _password!);
+    final result = await uService.login(_codigoAlumno!.replaceAll(' ', '')!, _password!, context);
     if(result != null && result.data != null && result.data?.code ==200) {
       Navigator.pushNamed(context, 'elections');
       //DIALOG

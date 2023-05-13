@@ -2,24 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:votum/providers/Elections_Provider.dart';
 
+import '../../main.dart';
+import '../../model/DetailHolder.dart';
+
 class ElectionResult extends StatefulWidget {
+  final  CantidadVotosBlancom;
+  final CantidadVotosValidos;
+  final VotoEmitido;
+  final electionId;
+
+  const ElectionResult({ required this.electionId, required this.CantidadVotosBlancom, required this.CantidadVotosValidos, required this.VotoEmitido,});
 
   @override
   State<ElectionResult> createState() => _ElectionResultState();
-
-/*Container(
-              padding: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 118.89*fem),
-              width: double.infinity,
-              decoration: BoxDecoration (
-                color: Color(0xffffffff),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-
-                ],
-              ),
-            );*/
 
 }
 
@@ -31,11 +26,12 @@ class _ElectionResultState extends State<ElectionResult> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
     ElectionProvideer electionProvideer = new ElectionProvideer();
+    var totalVotos;
     var candidatos = [];
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            "Elecciones",
+            "Resultados",
             style: GoogleFonts.poppins(
                 fontSize: 19.0,
                 color: Colors.white,
@@ -77,7 +73,7 @@ class _ElectionResultState extends State<ElectionResult> {
                             child: Text(
                               'Departamento \nacadémico',
                               style: GoogleFonts.poppins(
-                                fontSize: 22*ffem,
+                                fontSize: 23*ffem,
                                 fontWeight: FontWeight.w600,
                                 height: 1.5*ffem/fem,
                                 color: Color(0xff000000),
@@ -88,7 +84,7 @@ class _ElectionResultState extends State<ElectionResult> {
                             // listadeparticipantesTsy (502:125)
                             'Lista de participantes',
                             style: GoogleFonts.poppins(
-                              fontSize: 11*ffem,
+                              fontSize: 13*ffem,
                               fontWeight: FontWeight.w600,
                               height: 1.5*ffem/fem,
                               color: Color(0xff3f468f),
@@ -102,22 +98,26 @@ class _ElectionResultState extends State<ElectionResult> {
               ),
               Expanded(
                   child: FutureBuilder(
-                      future: electionProvideer.getResults(),
+                      future: electionProvideer.getPartidosResutlados(46, localStorage.getString('codigo').toString()),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         if (snapshot.data == null) {
+
+                          return Center(child: CircularProgressIndicator());
+                        } else {
                           return Container(
                             margin: EdgeInsets.fromLTRB(10*fem, 5*fem, 5*fem, 1*fem),
                             padding: EdgeInsets.fromLTRB(9.11*fem, 9*fem, 9*fem, 0*fem),
                             width: double.infinity,
                             height: 400*fem,
-                            child: ListView(
-                              physics: BouncingScrollPhysics(),
-                              scrollDirection: Axis.vertical,
-                              children: buildParticipantes(context, 8),
+                            child: ListView.builder(
+                              itemCount: snapshot.data.length,
+                              itemBuilder:  (BuildContext context, int i){
+                                totalVotos = snapshot.data[i].value;
+                               return  ParticipantesCard(i, context);
+                              }
+
                             ),
                           );
-                        } else {
-                          return Center(child: CircularProgressIndicator());
                         }
                       })),
 
@@ -143,7 +143,7 @@ class _ElectionResultState extends State<ElectionResult> {
                     ),
                     Text(
                       // totaldevotosemitidos213SXV (502:157)
-                      'Total de votos emitidos: 213',
+                      'Total de votos emitidos:'+ totalVotos,
                       textAlign: TextAlign.right,
                       style: GoogleFonts.poppins(
                         fontSize: 14*ffem,
@@ -193,11 +193,11 @@ class _ElectionResultState extends State<ElectionResult> {
               // avavHh (502:129)
               width: 53.72*fem,
               height: 53.72*fem,
-              child: Image.asset(
+              /*child: Image.asset(
                 'assets/mockups-movil/images/ava--4YK.png',
                 width: 53.72*fem,
                 height: 53.72*fem,
-              ),
+              ),*/
             ),
             Container(
               // autogroupjyxtzHZ (2AZC1dhQ6puJXB8UMejYxT)

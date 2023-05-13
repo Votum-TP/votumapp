@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         Locale('en', ''), // English, no country code
         Locale('es', ''), // Spanish, no country code
       ],
-      home: PhoneAuthPage(),
+      home: Splash(),
       initialRoute: '/',
       routes: {
         'elections': (context) => VotePage(),

@@ -10,6 +10,7 @@ import 'package:votum/pages/face_authentication_page/authentication_page.dart';
 
 import '../helpers/constant_helpers.dart';
 import '../main.dart';
+import '../pages/autentication_otp/otp_view_page.dart';
 import '../pages/elections_page/VotoEnviado.dart';
 import '../pages/face_authentication_page/face_noverify.dart';
 import '../pages/face_authentication_page/face_verify.dart';
@@ -57,17 +58,19 @@ class VotoProvider {
       }
       final res = await request.send();
       final respStr = await res.stream.bytesToString();
+      final responseData = json.decode(respStr);
+      print(responseData["code"]);
 
-    if (res.statusCode == 200) {
-      /*Navigator.of(context).push(MaterialPageRoute(
+    if (responseData["code"] == 200) {
+     /* Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) =>
               FaceNoneVerify(rostro: imageFile, ElectionId: IdEleccion,)));*/
 
-      Navigator.of(context).push(MaterialPageRoute(
+     Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) =>
               FaceVerify(rostro: imageFile, ElectionId: IdEleccion,)));
     }
-    if(res.statusCode == 404) {
+    if(res.statusCode == 404 || responseData["code"] == 400) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) =>
           FaceNoneVerify(rostro: imageFile, ElectionId: IdEleccion,)));
@@ -122,7 +125,7 @@ class VotoProvider {
     var jsonData =
     json.decode(Utf8Decoder().convert(response.bodyBytes).toString());
 
-    if (response.statusCode == 200) {
+    if (jsonData["code"] == 200) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) =>
               EnviarVoto(ElectionId: IdEleccion,)));
@@ -147,10 +150,10 @@ class VotoProvider {
     json.decode(Utf8Decoder().convert(response.bodyBytes).toString());
 
 
-    if (response.statusCode == 200) {
+    if (jsonData["code"] == 200) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) =>
-              OtpVerificationView(ElectionId: IdEleccion,)));
+              PhoneAuthPage(ElectionId: IdEleccion,)));
     } else {
       _alert.createAlert(
           context, "Algo salió mal", "No se ha podido enviar.", "aceptar");

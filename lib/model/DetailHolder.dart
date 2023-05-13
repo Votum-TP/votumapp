@@ -1,4 +1,6 @@
-class DetailElection {
+import 'package:votum/model/DetailElection.dart';
+
+class DetailHolder {
   String? nombre;
   String? descripcion;
   String? fechaInicio;
@@ -9,18 +11,18 @@ class DetailElection {
   String? fechaFin;
   List<Partidos>? partidos;
 
-  DetailElection(
-      {this.nombre,
-        this.descripcion,
-        this.fechaInicio,
-        this.estado,
-        this.cantidadVotosBlancos,
-        this.cantidadVotosValidos,
-        this.votoEmitido,
-        this.fechaFin,
-        this.partidos});
+  DetailHolder(
+      { this.nombre,
+          this.descripcion,
+         this.fechaInicio,
+         this.estado,
+        required  this.cantidadVotosBlancos,
+        required this.cantidadVotosValidos,
+        required this.votoEmitido,
+         this.fechaFin,
+         this.partidos});
 
-  DetailElection.fromJson(Map<String, dynamic> json) {
+  DetailHolder.fromJson(Map<String, dynamic> json) {
     nombre = json['Nombre'];
     descripcion = json['Descripcion'];
     fechaInicio = json['FechaInicio'];
@@ -54,24 +56,3 @@ class DetailElection {
   }
 }
 
-class Partidos {
-  String? nombre;
-  int? cantidadVotos;
-  String? imagen;
-
-  Partidos({this.nombre, this.cantidadVotos, this.imagen});
-
-  Partidos.fromJson(Map<String, dynamic> json) {
-    nombre = json['Nombre'];
-    cantidadVotos = json['CantidadVotos'];
-    imagen = json['Imagen'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Nombre'] = this.nombre;
-    data['CantidadVotos'] = this.cantidadVotos;
-    data['Imagen'] = this.imagen;
-    return data;
-  }
-}

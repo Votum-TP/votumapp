@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:votum/model/Election.dart';
 import 'package:votum/pages/elections_page/Election_detail_page.dart';
 import 'package:votum/widgets/Custom_drawer.dart';
 
@@ -13,8 +14,8 @@ class VotePage extends StatefulWidget {
 
 class _VotePageState extends State<VotePage> {
   ElectionProvideer voteProvider = new ElectionProvideer();
-  var elecciones = <Eleccion>[];
-  var elecciones2 = <Eleccion>[];
+  var elecciones = <Election>[];
+  var elecciones2 = <Election>[];
 
   @override
   void initState() {
@@ -23,7 +24,7 @@ class _VotePageState extends State<VotePage> {
       //here is the async code, you can execute any async code here
       var res = await voteProvider.getResults();
       for (var aux in res) {
-        elecciones2.add((aux as Eleccion));
+        elecciones2.add((aux as Election));
       }
       setState(() {
         elecciones = elecciones2;
@@ -109,7 +110,7 @@ class _VotePageState extends State<VotePage> {
                                   left: 10.0, right: 10.0),
                               itemCount: elecciones.length,
                               itemBuilder: (BuildContext context, int index) {
-                                Eleccion eleccion = elecciones[index];
+                                Election eleccion = elecciones[index];
                                 return GestureDetector(
                                   onTap: () {
                                     Navigator.push(
@@ -179,7 +180,7 @@ class _VotePageState extends State<VotePage> {
                                                               0 * fem,
                                                               4.72 * fem),
                                                       child: Text(
-                                                        eleccion.Nombre
+                                                        eleccion.nombre
                                                             .toString(),
                                                         style:
                                                             GoogleFonts.poppins(
@@ -203,7 +204,7 @@ class _VotePageState extends State<VotePage> {
                                                               4.72 * fem),
                                                       child: Text(
                                                         'Fecha de inicio:' +
-                                                            eleccion.FechaInicio
+                                                            eleccion.fechaInicio
                                                                 .toString(),
                                                         style:
                                                             GoogleFonts.poppins(
@@ -219,7 +220,7 @@ class _VotePageState extends State<VotePage> {
                                                     ),
                                                     Text(
                                                       // estadofinalizadoexb (174:7761)
-                                                      'Estado: Iniciado',
+                                                      'Estado: '+ eleccion.estado.toString(),
                                                       style:
                                                           GoogleFonts.poppins(
                                                         fontSize: 9 * ffem,
