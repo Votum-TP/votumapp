@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:votum/model/DetailElection.dart';
 import 'package:votum/providers/Elections_Provider.dart';
 
 import '../../main.dart';
@@ -98,7 +99,7 @@ class _ElectionResultState extends State<ElectionResult> {
               ),
               Expanded(
                   child: FutureBuilder(
-                      future: electionProvideer.getPartidosResutlados(46, localStorage.getString('codigo').toString()),
+                      future: electionProvideer.getPartidosResutlados(widget.electionId, localStorage.getString('codigo').toString()),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         if (snapshot.data == null) {
 
@@ -110,11 +111,10 @@ class _ElectionResultState extends State<ElectionResult> {
                             width: double.infinity,
                             height: 400*fem,
                             child: ListView.builder(
-                              itemCount: snapshot.data.length,
-                              itemBuilder:  (BuildContext context, int i){
-                                totalVotos = snapshot.data[i].value;
-                               return  ParticipantesCard(i, context);
-                              }
+                                itemCount: snapshot.data.length,
+                                itemBuilder:  (BuildContext context, int i){
+                                  return  ParticipantesCard(i,snapshot.data[i], context);
+                                }
 
                             ),
                           );
@@ -131,7 +131,7 @@ class _ElectionResultState extends State<ElectionResult> {
                       // votosenblanco5yto (502:156)
                       margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 10*fem),
                       child: Text(
-                        'Votos en blanco: 5',
+                        'Votos en blanco:'+widget.CantidadVotosBlancom.toString(),
                         textAlign: TextAlign.right,
                         style: GoogleFonts.poppins(
                           fontSize: 14*ffem,
@@ -143,7 +143,7 @@ class _ElectionResultState extends State<ElectionResult> {
                     ),
                     Text(
                       // totaldevotosemitidos213SXV (502:157)
-                      'Total de votos emitidos:'+ totalVotos,
+                      'Total de votos emitidos:'+widget.CantidadVotosValidos.toString(),
                       textAlign: TextAlign.right,
                       style: GoogleFonts.poppins(
                         fontSize: 14*ffem,
@@ -160,15 +160,15 @@ class _ElectionResultState extends State<ElectionResult> {
         ));
   }
 
-  List<Widget> buildParticipantes(BuildContext context, var partidos) {
+  List<Widget> buildParticipantes(BuildContext context, var partidos, Partidos partido) {
     List<Widget> list = [];
     for (var i = 0; i < partidos; i++) {
-      list.add(ParticipantesCard(i, context));
+      list.add(ParticipantesCard(i,partido, context));
     }
     return list;
   }
 
-  Widget ParticipantesCard(int index, BuildContext context) {
+  Widget ParticipantesCard(int index, Partidos partido, BuildContext context) {
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
@@ -193,11 +193,11 @@ class _ElectionResultState extends State<ElectionResult> {
               // avavHh (502:129)
               width: 53.72*fem,
               height: 53.72*fem,
-              /*child: Image.asset(
-                'assets/mockups-movil/images/ava--4YK.png',
+              child: Image.network(
+                partido.imagen.toString(),
                 width: 53.72*fem,
                 height: 53.72*fem,
-              ),*/
+              ),
             ),
             Container(
               // autogroupjyxtzHZ (2AZC1dhQ6puJXB8UMejYxT)
@@ -217,7 +217,7 @@ class _ElectionResultState extends State<ElectionResult> {
                           // partidoyabastakAF (502:133)
                           margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 4.72*fem),
                           child: Text(
-                            'Partido Ya Basta',
+                            partido.nombre.toString(),
                             style: GoogleFonts.poppins(
                               fontSize: 11*ffem,
                               fontWeight: FontWeight.w400,
@@ -260,7 +260,7 @@ class _ElectionResultState extends State<ElectionResult> {
                                   // Et3 (502:137)
                                   margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 1*fem, 0*fem),
                                   child: Text(
-                                    '69.48',
+                                    ((partido.cantidadVotos!/widget.CantidadVotosValidos)*100).toString(),
                                     style: GoogleFonts.poppins(
                                       fontSize: 18*ffem,
                                       fontWeight: FontWeight.w700,
@@ -295,7 +295,7 @@ class _ElectionResultState extends State<ElectionResult> {
                               width: 46*fem,
                               height: 17*fem,
                               child: Text(
-                                '148 / 213',
+                                partido.cantidadVotos!.toString()+"/"+widget.CantidadVotosValidos.toString(),
                                 textAlign: TextAlign.right,
                                 style: GoogleFonts.poppins(
                                   fontSize: 11*ffem,

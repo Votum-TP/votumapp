@@ -139,7 +139,7 @@ class _VotePageState extends State<VotePage> {
                                     margin: const EdgeInsets.all(10.0),
                                     child: Row(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                      CrossAxisAlignment.center,
                                       children: [
                                         Container(
                                           // frame187P1 (174:7755)
@@ -148,7 +148,7 @@ class _VotePageState extends State<VotePage> {
                                           height: double.infinity,
                                           child: Row(
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                             children: [
                                               Container(
                                                 // onlinevoting1CfM (174:7757)
@@ -169,52 +169,52 @@ class _VotePageState extends State<VotePage> {
                                                 height: double.infinity,
                                                 child: Column(
                                                   crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                                   children: [
                                                     Container(
                                                       // departamentoacadmicoAu1 (174:7759)
                                                       margin:
-                                                          EdgeInsets.fromLTRB(
-                                                              0 * fem,
-                                                              10 * fem,
-                                                              0 * fem,
-                                                              4.72 * fem),
+                                                      EdgeInsets.fromLTRB(
+                                                          0 * fem,
+                                                          10 * fem,
+                                                          0 * fem,
+                                                          4.72 * fem),
                                                       child: Text(
                                                         eleccion.nombre
                                                             .toString(),
                                                         style:
-                                                            GoogleFonts.poppins(
+                                                        GoogleFonts.poppins(
                                                           fontSize: 11 * ffem,
                                                           fontWeight:
-                                                              FontWeight.w400,
+                                                          FontWeight.w400,
                                                           height:
-                                                              1.5 * ffem / fem,
+                                                          1.5 * ffem / fem,
                                                           color:
-                                                              Color(0xff000000),
+                                                          Color(0xff000000),
                                                         ),
                                                       ),
                                                     ),
                                                     Container(
                                                       // fechadeinicio10102022QHZ (174:7760)
                                                       margin:
-                                                          EdgeInsets.fromLTRB(
-                                                              0 * fem,
-                                                              0 * fem,
-                                                              0 * fem,
-                                                              4.72 * fem),
+                                                      EdgeInsets.fromLTRB(
+                                                          0 * fem,
+                                                          0 * fem,
+                                                          0 * fem,
+                                                          4.72 * fem),
                                                       child: Text(
                                                         'Fecha de inicio:' +
                                                             eleccion.fechaInicio
                                                                 .toString(),
                                                         style:
-                                                            GoogleFonts.poppins(
+                                                        GoogleFonts.poppins(
                                                           fontSize: 9 * ffem,
                                                           fontWeight:
-                                                              FontWeight.w400,
+                                                          FontWeight.w400,
                                                           height:
-                                                              1.5 * ffem / fem,
+                                                          1.5 * ffem / fem,
                                                           color:
-                                                              Color(0xff95989e),
+                                                          Color(0xff95989e),
                                                         ),
                                                       ),
                                                     ),
@@ -222,14 +222,14 @@ class _VotePageState extends State<VotePage> {
                                                       // estadofinalizadoexb (174:7761)
                                                       'Estado: '+ eleccion.estado.toString(),
                                                       style:
-                                                          GoogleFonts.poppins(
+                                                      GoogleFonts.poppins(
                                                         fontSize: 9 * ffem,
                                                         fontWeight:
-                                                            FontWeight.w400,
+                                                        FontWeight.w400,
                                                         height:
-                                                            1.5 * ffem / fem,
+                                                        1.5 * ffem / fem,
                                                         color:
-                                                            Color(0xff7fc008),
+                                                        Color(0xff7fc008),
                                                       ),
                                                     ),
                                                   ],

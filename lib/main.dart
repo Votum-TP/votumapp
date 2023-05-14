@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:votum/model/Results.dart';
 import 'package:votum/pages/Scene.dart';
 import 'package:votum/pages/autentication_otp/otp_page.dart';
 import 'package:votum/pages/autentication_otp/otp_view_page.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
         Locale('en', ''), // English, no country code
         Locale('es', ''), // Spanish, no country code
       ],
-      home: Splash(),
+      home:LoginPage(),
       initialRoute: '/',
       routes: {
         'elections': (context) => VotePage(),

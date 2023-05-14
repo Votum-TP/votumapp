@@ -92,12 +92,11 @@ class _ElectionDetailState extends State<ElectionDetail> {
       var res = await voteProvider.getpartidos(widget.eleccion.idEleccion.toString());
 
 
-     /* for( var aux in res){
+     for( var aux in res){
         partidos2.add((aux as Partido));
-      }*/
+      }
       setState(() {
         partidos = partidos2;
-
       });
     });
 

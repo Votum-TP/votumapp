@@ -80,20 +80,30 @@ class ElectionProvideer {
       // Send authorization headers to the backend.
       headers: {
         "Content-Type": "application/json",
+        'Accept': 'application/json',
         HttpHeaders.authorizationHeader: 'Bearer ' + localStorage.get('token').toString(),
       },
     );
 
+    if(response.body.isNotEmpty) {
+      final responseJson = jsonDecode(response.body);
 
-    final responseJson = jsonDecode(response.body);
 
-    if(response.statusCode == 200){
-      var rest = responseJson["Partidos"] as List;
-      print(rest);
+      if (response.statusCode == 200) {
+        var rest = responseJson["Partidos"] as List;
+        for (var aux in rest) {
+          Partidos partido = Partidos.fromJson(aux);
+          print(aux.toString());
+          partidos.add(partido);
+        }
+        print(partidos);
+        /* print(rest);
       partidos = rest.map<Partidos>((json) => Partidos.fromJson(json)).toList();
+      print(partidos);*/
 
-    } else {
-      print(responseJson);
+      } else {
+        print(responseJson);
+      }
     }
     return partidos;
 
