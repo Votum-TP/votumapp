@@ -24,6 +24,7 @@ import '../../helpers/constant_helpers.dart';
 import '../../main.dart';
 import '../../model/DetailHolder.dart';
 import '../../model/Eleccion.dart';
+import '../../utils/alert.dart';
 class ElectionDetail extends StatefulWidget {
 
   final Election eleccion;
@@ -44,6 +45,7 @@ class _ElectionDetailState extends State<ElectionDetail> {
   int? CantidadVotosBlancom,CantidadVotosValidos;
   bool? VotoEmitido;
   late final DetailHolder detalleresultado;
+  Alert _alert = Alert();
 
 
   getResultado() async {
@@ -352,7 +354,7 @@ class _ElectionDetailState extends State<ElectionDetail> {
                 children: <Widget>[
                   Text(
                     'Comenzar elección',
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 24.0,
                       fontWeight: FontWeight.w700,
                     ),
@@ -361,8 +363,8 @@ class _ElectionDetailState extends State<ElectionDetail> {
                   Text(
                     'Emitirá su voto en unos instantes',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16.0,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
                     ),
                   ),
                   SizedBox(height: 24.0),
@@ -370,6 +372,7 @@ class _ElectionDetailState extends State<ElectionDetail> {
                       alignment: Alignment.bottomRight,
                       child: Row(
                         children: [
+                          SizedBox(width: 50,),
                           TextButton(
                             onPressed: () {
                               Navigator.of(context).pop();
@@ -379,7 +382,13 @@ class _ElectionDetailState extends State<ElectionDetail> {
                           SizedBox(width: 50,),
                           TextButton(
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> InstructionScreen(electionId: widget.eleccion.idEleccion.toString(),)));
+                              if(VotoEmitido == true){
+                                _alert.createAlert(
+                                    context, "Su voto ha sido emitido", "Espere a que termine el proceso.", "aceptar");
+
+                              } else {
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> InstructionScreen(electionId: widget.eleccion.idEleccion.toString(),)));
+                              }
                             },
                             child: Text('Comenzar',style: GoogleFonts.poppins(),),
                           ),
@@ -519,7 +528,7 @@ class _ElectionDetailState extends State<ElectionDetail> {
                       width: 53.72*fem,
                       height: 53.72*fem,
                       child: Image.network(
-                        'https://i.imgur.com/CwA8qP6.png',
+                        partido.imagen.toString(),
                         width: 53.72*fem,
                         height: 53.72*fem,
                       ),
@@ -546,7 +555,7 @@ class _ElectionDetailState extends State<ElectionDetail> {
                           ),
                           Text(
                             // representantemarcocorreaQvX (502:240)
-                            'Representante: Marco Correa',
+                            'Representante:',
                             style: GoogleFonts.poppins(
                               fontSize: 9*ffem,
                               fontWeight: FontWeight.w400,
