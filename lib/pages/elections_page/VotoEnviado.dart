@@ -13,7 +13,7 @@ class EnviadoVoto extends StatelessWidget {
      return Scaffold(
        appBar: AppBar(
          title: Text(
-           "Enviar Voto",
+           "Estado del Voto",
            style: GoogleFonts.poppins(
                fontSize: 19.0,
                color: Colors.white,
@@ -23,10 +23,7 @@ class EnviadoVoto extends StatelessWidget {
            onTap: (){
              Navigator.pop(context);
            },
-           child: Icon(
-             Icons.arrow_back_ios,
-             color: Colors.white,
-           ),
+
          ),
        ),
        body:  Container(
@@ -102,14 +99,19 @@ class EnviadoVoto extends StatelessWidget {
                          ),
                        ],
                      ),
-                     child: Center(
-                       child: Text(
-                         'Continuar',
-                         style: GoogleFonts.poppins(
-                           fontSize: 11*ffem,
-                           fontWeight: FontWeight.w500,
-                           height: 1.5*ffem/fem,
-                           color: Color(0xffffffff),
+                     child: TextButton(
+                       onPressed: (){
+                         Navigator.pushNamed(context, 'elections');
+                       },
+                       child: Center(
+                         child: Text(
+                           'Continuar',
+                           style: GoogleFonts.poppins(
+                             fontSize: 11*ffem,
+                             fontWeight: FontWeight.w500,
+                             height: 1.5*ffem/fem,
+                             color: Color(0xffffffff),
+                           ),
                          ),
                        ),
                      ),

@@ -117,7 +117,7 @@ class VotoProvider {
     };
     var bodyRequest = json.encode(data);
     var response = await http.post(
-        Uri.parse("${Constants.URL}/api/Votos/EnviarVoto"),
+        Uri.parse("${Constants.URL}/api/Votos/AutenticarVotoOTP"),
         headers: {"Content-Type": "application/json;  charset=UTF-8",
           HttpHeaders.authorizationHeader: 'Bearer ' + localStorage.get('token').toString(),},
         body: bodyRequest);

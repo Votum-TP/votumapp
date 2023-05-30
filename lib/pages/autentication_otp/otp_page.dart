@@ -47,7 +47,6 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
         onWillPop: () async {
           return true;
         },
-
         child: GestureDetector(
           onTap: () {
             FocusScopeNode currentFocus = FocusScope.of(context);
