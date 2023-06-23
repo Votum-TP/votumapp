@@ -70,7 +70,7 @@ class VotoProvider {
           builder: (BuildContext context) =>
               FaceVerify(rostro: imageFile, ElectionId: IdEleccion,)));
     }
-    if(res.statusCode == 404 || responseData["code"] == 400) {
+    if(res.statusCode == 404 || responseData["code"] == 404) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) =>
           FaceNoneVerify(rostro: imageFile, ElectionId: IdEleccion,)));

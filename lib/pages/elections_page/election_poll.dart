@@ -24,10 +24,12 @@ class _ElectionPollState extends State<ElectionPoll>{
   PartidosProvider voteProvider = new PartidosProvider();
   var partidos = <Partido>[];
   var partidos2 = <Partido>[];
+  bool _visible = true;
 
   int? vote;
   String? name;
   String? descripcion;
+  String? image;
 
   @override
   void initState() {
@@ -186,30 +188,33 @@ class _ElectionPollState extends State<ElectionPoll>{
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    return MaterialButton(
-      height: 41*fem,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
-      color: Color(0xFF3F468F),
-      onPressed: () {
-        if(vote == null) {
-          _alert.createAlert(
-              context, "Seleccione un opcion", "No puedo ser vació", "aceptar");
-        } else {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> ConfirmVote(Userid: widget.userId,Electionid: widget.electionId,Description: descripcion.toString(), Name: name.toString(), Partidoid: vote,)));
-        }
-      },
-      child: Padding(
-           padding: const EdgeInsets.symmetric(
-           vertical: 10.0, horizontal: 42.0),
-           child: Text(
-                   "Votar",
-              style: GoogleFonts.poppins(
-                fontSize: 11*ffem,
-                fontWeight: FontWeight.w500,
-                height: 1.5*ffem/fem,
-                color: Color(0xffffffff),),
-         ),
-         ),
+    return AnimatedOpacity(opacity: _visible ? 0.0 : 1.0,
+      duration: Duration(milliseconds: 500),
+      child: MaterialButton(
+        height: 41*fem,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
+        color: Color(0xFF3F468F),
+        onPressed: () {
+          if(vote == null) {
+            _alert.createAlert(
+                context, "Seleccione ", "No puedo ser vació", "aceptar");
+          } else {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> ConfirmVote(Userid: widget.userId,Electionid: widget.electionId,Description: descripcion.toString(), Name: name.toString(), Partidoid: vote,image: image.toString(),)));
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              vertical: 10.0, horizontal: 42.0),
+          child: Text(
+            "Votar",
+            style: GoogleFonts.poppins(
+              fontSize: 15*ffem,
+              fontWeight: FontWeight.w500,
+              height: 1.5*ffem/fem,
+              color: Color(0xffffffff),),
+          ),
+        ),
+      ),
     );
   }
   List<Widget> buildParticipantes(BuildContext context, var partidos){
@@ -228,23 +233,27 @@ class _ElectionPollState extends State<ElectionPoll>{
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
 
-            Container(
-              padding: EdgeInsets.fromLTRB(14.17*fem, 13.64*fem, 14.17*fem, 13.64*fem),
-              width: double.infinity,
-              height: 81*fem,
-              decoration: BoxDecoration (
-                border: Border.all(color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0)),
-                borderRadius: BorderRadius.circular(10*fem),
-              ),
-              child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      vote = partidos[index].idPartido;
-                      name = partidos[index].nombre;
-                      descripcion = partidos[index].descripcion;
-                      print(vote);
-                    });
-                  },
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  vote = partidos[index].idPartido;
+                  name = partidos[index].nombre;
+                  descripcion = partidos[index].descripcion;
+                  image = partidos[index].imagen;
+                  print(vote);
+                  _visible = false;
+                  print(_visible);
+                });
+
+              },
+              child:Container(
+                  padding: EdgeInsets.fromLTRB(14.17*fem, 13.64*fem, 14.17*fem, 13.64*fem),
+                  width: double.infinity,
+                  height: 81*fem,
+                  decoration: BoxDecoration (
+                    border: Border.all(color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),width: 2.0),
+                    borderRadius: BorderRadius.circular(10*fem),
+                  ),
                   child: Container(
 
                     // frame18z4B (502:234)
@@ -259,7 +268,7 @@ class _ElectionPollState extends State<ElectionPoll>{
                           width: 53.72*fem,
                           height: 53.72*fem,
                           child: Image.network(
-                            'https://i.imgur.com/CwA8qP6.png',
+                            partido.imagen.toString(),
                             width: 53.72*fem,
                             height: 53.72*fem,
                           ),

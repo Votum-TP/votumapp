@@ -13,9 +13,10 @@ class ConfirmVote extends StatelessWidget {
   final Partidoid;
   final String Description;
   final String Name;
+  final String image;
 
 
-  const ConfirmVote({ required this.Userid, required this.Electionid, required this.Description, required this.Name, required this.Partidoid});
+  const ConfirmVote({ required this.Userid, required this.Electionid, required this.Description, required this.Name, required this.Partidoid, required this.image});
   @override
   Widget build(BuildContext context) {
 
@@ -112,7 +113,7 @@ class ConfirmVote extends StatelessWidget {
                                   width: 92.33*fem,
                                   height: 92.33*fem,
                                   child: Image.network(
-                                    'https://i.imgur.com/CwA8qP6.png',
+                                    image,
                                     width: 92.33*fem,
                                     height: 92.33*fem,
                                   ),
@@ -129,7 +130,7 @@ class ConfirmVote extends StatelessWidget {
                                         child: Text(
                                           Name,
                                           style: GoogleFonts.poppins(
-                                            fontSize: 11*ffem,
+                                            fontSize: 13*ffem,
                                             fontWeight: FontWeight.w600,
                                             height: 1.5*ffem/fem,
                                             color: Color(0xff9f2e64),
